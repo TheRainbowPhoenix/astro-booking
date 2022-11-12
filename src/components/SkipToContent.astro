@@ -1,0 +1,86 @@
+---
+
+interface Props {
+  label?: string;
+}
+
+const { label="Skip to content" } = Astro.props;
+
+---
+
+<div class="skipBar">
+    <a href="skipContentLink" class="skipContent">{label}</a>
+    <slot />
+    <a name="skipContentLink"></a>
+</div>
+
+<script>
+    (() => {
+
+        function isFocusable(el) {
+            const focusableNodeTypes = ['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA']
+            const focusableNodeAttributes = ['href', 'tabindex']
+            return focusableNodeTypes.indexOf(el.nodeName) > -1 || focusableNodeAttributes.some(attr => el.hasAttribute(attr))
+        }
+
+        function focusNextFocusable(el) {
+            let ref = el;
+            let next = ref.nextElementSibling;
+            while(!next && ref !== document.body) {
+                ref = ref.parentElement;
+                next = ref.nextElementSibling;
+            }
+
+            if (next) {
+                const focus = isFocusable(next) ? next : next.querySelector('button, [href], input, select, textarea, [tabindex]');
+                if (!focus) {
+                    this.focusNextElement(next)
+                } else {
+                    focus.focus();
+                }
+            }
+        }
+
+        function focusNextElement(t) {
+            const target = t;
+            setTimeout(() => {
+                focusNextFocusable(t);
+            })
+            
+        }
+
+        document.querySelectorAll(".skipBar > a.skipContent").forEach((node) => {
+            node.addEventListener("click", (e) => {
+                e.preventDefault();
+                let t = e.target;
+
+                while( t && t?.name !== "skipContentLink") {
+                    t = t.nextSibling;
+                }
+                console.log(t);
+                if (t?.name === "skipContentLink") {
+                    focusNextElement(t);
+                }
+            })
+        });
+    })();
+</script>
+
+<style>
+    .skipContent {
+        position: absolute;
+        z-index: 100;
+        background: #fff;
+        padding: 10px;
+
+        font-size: 1rem;
+        color: #222;
+        left: -9999px;
+        line-height: normal;
+    }
+
+    .skipContent:focus {
+        left: 0
+    }
+
+</style>

@@ -1,0 +1,40 @@
+---
+import InternetExplorer from "@layouts/InternetExplorer.astro";
+import Layout from "@layouts/Layout.astro";
+
+const cookie = Astro.request?.headers?.get("cookie");
+const param = Astro.params;
+const client = Astro.params?.clientName;
+
+const uaString = Astro.request?.headers?.get("user-agent");
+const isIE = /MSIE \d|Trident.*rv:/.test(uaString);
+---
+
+{
+  isIE ? (
+    <InternetExplorer title="Outdated browser" />
+  ) : (
+    <Layout title="Client properties">
+      <main>
+        <h1>properties {client && `of ${client}`}</h1>
+        <h2>Using {isIE ? "Internet Explorer" : "Modern broser"}</h2>
+        <>
+          <code>Params: {JSON.stringify(param)}</code>
+          <br />
+        </>
+        <>
+          <code>Request: {JSON.stringify(Astro.request)}</code>
+          <br />
+        </>
+        <>
+          <code> -- data : {JSON.stringify(uaString)}</code>
+          <br />
+        </>
+        <>
+          <code>Astro: {JSON.stringify(Astro)}</code>
+          <br />
+        </>
+      </main>
+    </Layout>
+  )
+}

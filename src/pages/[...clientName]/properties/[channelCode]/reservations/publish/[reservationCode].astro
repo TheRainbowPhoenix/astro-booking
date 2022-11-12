@@ -1,0 +1,20 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+const param = Astro.params;
+const reservationCode = Astro.params?.reservationCode;
+const channelCode = Astro.params?.channelCode;
+
+// Fake for now
+const response = await fetch(`${Astro.url.origin}/api/channels/${channelCode}`);
+const data = await response.json();
+
+
+let title = "PUBLISH_RESERVATION";
+---
+
+<Layout title={title}>
+  <h1>{title}</h1>
+  <div>{data.name}</div>
+  <!-- PublishReservation -->
+</Layout>

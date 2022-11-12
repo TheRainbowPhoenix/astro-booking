@@ -1,0 +1,122 @@
+---
+import BaseContainer from "@components/BaseContainer.astro"
+import NavBar from "@components/NavBar.astro"
+import type { Property } from "@utils/property"
+
+export interface Props {
+  title: string;
+  context: {
+	property?: Property;
+  }
+}
+
+let navBarVisible = true;
+
+const { context, title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="google" content="notranslate" />
+  </head>
+  <body>
+	<div> 
+		<!--
+		<CookieBanner />
+		<CookieModal />
+		<PrivacyPolicyModal />
+		-->
+		<BaseContainer>
+			{navBarVisible && (
+				<NavBar property={context.property}/>
+			)}
+			
+			<slot />
+
+		</BaseContainer>
+
+		<div class="back-top">
+			<a href="#top">
+				<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M8.12 14.71L12 10.83l3.88 3.88a.996.996 0 1 0 1.41-1.41L12.7 8.71a.996.996 0 0 0-1.41 0L6.7 13.3a.996.996 0 0 0 0 1.41c.39.38 1.03.39 1.42 0z"/></svg>
+			</a>
+		</div>
+ 
+		
+      
+	</div>
+  </body>
+</html>
+
+<style>
+	.back-top {
+		position: fixed;
+		bottom: 15px;
+		right: 10px;
+		/* opacity: 0; */
+		z-index: 200;
+		/* pointer-events: none; */
+	}
+
+	.back-top a {
+		background-color: #5d5d78;
+		color: white;
+  		box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+		width: 3rem;
+		height: 3rem;
+		display: flex;
+		justify-content: center;
+    	-webkit-box-align: center;
+		border-radius: 50%;
+		align-items: center;
+		transition: box-shadow .4s ease-in-out; 
+	}
+
+	.back-top:hover a {
+		cursor: pointer;
+		box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+	}
+
+	.back-top a svg {
+		fill: currentColor;
+    	stroke: none;
+		display: inline-block;
+		width: 2rem;
+		height: 2rem;
+		color: inherit;
+    	vertical-align: middle;
+	}
+</style>
+
+<style is:global>
+  :root {
+	--primary: #228be6;
+	--header-bg: #f6f6f6;
+	--font-ui: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    --accent: 124, 58, 237;
+    --accent-gradient: linear-gradient(
+      45deg,
+      rgb(var(--accent)),
+      #da62c4 30%,
+      white 60%
+    );
+  }
+  html {
+    font-family: var(--font-ui);
+  }
+  body {
+	padding: 0;
+	margin: 0;
+	background-color: #ffeffe;
+  }
+
+  code {
+    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
+      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  }
+</style>

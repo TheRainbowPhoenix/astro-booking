@@ -1,0 +1,299 @@
+---
+
+import SkipToContent from "@components/SkipToContent.astro"
+import type { Property } from "@utils/property"
+
+interface Props {
+  property?: Property /* Property */ ;
+  name: string;
+  timezoneoffset?: string;
+  currencies?: string[]; /* Currency[] */
+  languages?: string[]; /* Language[] */
+  currentCurrency?: string; /* Currency */
+  currentLang?: string; /* Language */
+}
+
+function getRating() {
+    const { starRating } = property || { starRating: 0 }
+    return Math.floor(starRating);
+}
+
+const { property, vertical=true, currencies=["EUR", "USD"], currentCurrency="EUR"} = Astro.props;
+
+let website = property.website;
+let homePage = "";
+
+const isCheckOutPage = false;
+// /^\/(\w+\/)?(properties)\/([a-zA-Z0-9\-]+)$/i.test(Astro.url.pathname);
+
+const notDetailsPage = !(
+    /^\/(\w+\/)?(reservations)\/([a-zA-Z0-9\-]+)$/i.test(Astro.url.pathname) ||
+    /^\/(\w+\/)?(cancellations)\/([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)$/i.test(Astro.url.pathname)
+)
+// :channelCode/reservations/:reservationCode || /:clientName?/cancellations/:channelCode/:reservationCode
+
+const links = [
+    { name: "Availability", href: `/properties/${property.uuid}?book=args`},
+    { name: "About", href: `/properties/${property.uuid}/about`},
+    { name: "Contact", href: `/properties/${property.uuid}/contact`},
+    { name: "Policies", href: `/properties/${property.uuid}/policies`},
+]
+
+---
+
+<header class="ab-header sticky">
+  <nav class="ab-navbar">
+    <div class="ab-mobile" style="display: none">
+      {isCheckOutPage ? (
+      <p>checkout-back-step-button</p>
+      ): (
+      <p>hamburger-menu</p>
+      )}
+    </div>
+
+    <div class="ab-desktop" style="display: none">
+      <SkipToContent>
+        <div class="ab-wrapper">
+          {isCheckOutPage ? (
+          <p>checkout-back-step-button <span>Logo</span></p>
+          ): (
+          <div class="ab-anchor">
+            {(website || homePage) && (
+
+            <div class="ab-logo" aria-live="assertive">
+              <a
+                href={website}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="ab-logo-link"
+              >
+                <span class="ab-logo-name">{property.name}</span>
+              </a>
+              <div class="ab-rating">****</div>
+            </div>
+            <ul role="menu" class="ab-menu-list">
+                {links.map((l) => 
+                    <li role="presentation" class={
+                        "ab-menu-link"
+                        + (l.href.split(/[?#]/)[0] == Astro.url.pathname ? " active" : "")
+                    }>
+                        <a
+                        href={l.href}
+                        class="ab-link"
+                        tabindex="0"
+                        >
+                        {l.name}
+                        </a>
+                    </li>
+                )}
+            </ul>
+            )}
+          </div>
+          )}
+
+          {notDetailsPage && (
+            <div class="ab-localities-selectors">
+                { currentCurrency && ( // && isReservationPage ?
+                    <div class="ab-nav-select" trigger="click" aria-label="EUR" placement="bottom-start">
+                        <div class="ab-dropdown">
+                            <span class="ab-dropdown-link" aria-haspopup="list" aria-controls="dropdown-currency-menu" role="button" tabindex="0">
+                                <span class="ab-name">{currentCurrency}</span>
+                            </span>
+                        </div>
+                    </div>
+                )}
+            </div>
+          )}
+        </div>
+        <a href="#">a</a>
+        <a href="#">a</a>
+        <a href="#">a</a>
+        <a href="#">a</a>
+      </SkipToContent>
+      <a href="#">a</a>
+      <a href="#">a</a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  (() => {
+    let desktop = window.innerWidth >= 1000;
+
+    let query = desktop ? ".ab-mobile" : ".ab-desktop";
+    document.querySelectorAll(query).forEach((node) => {
+      node.remove();
+      // node.style.display = "none";
+    });
+
+    let showQuery = desktop ? ".ab-desktop" : ".ab-mobile";
+    document.querySelectorAll(showQuery).forEach((node) => {
+      node.style.display = "";
+    });
+  })();
+</script>
+
+<style>
+  header {
+    background-color: var(--header-bg);
+    height: 60px;
+    line-height: 60px;
+    max-height: 60px;
+    z-index: 2001;
+    top: 0;
+    font-family: var(--font-ui);
+    padding: 0 20px;
+    border: 1px solid #e2e8f0;
+    border-bottom: 1px solid rgba(45, 45, 45, 0.2);
+  }
+
+  .ab-header {
+    /* Custom modern theme */
+    box-shadow: 0 5px 20px 5px #00000013;
+    margin: 0 18px;
+    border-radius: 0.25rem;
+    margin-top: 1rem;
+  }
+
+  header.ab-header > .ab-navbar {
+    height: 100%;
+  }
+
+  header .ab-anchor {
+    display: flex;
+    flex: 0 1 auto;
+  }
+
+  header .ab-anchor .ab-logo {
+    flex: 0 1 350px;
+    overflow-y: hidden;
+  }
+
+  header .ab-desktop {
+    display: flex;
+  }
+  header .ab-wrapper {
+    display: flex;
+  }
+
+  .ab-menu-list {
+    list-style: none;
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+    white-space: nowrap;
+
+    margin: 0 0 0 18px;
+    padding: 0 0 0 18px;
+
+    height: 60px;
+
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0px;
+  }
+
+  .ab-menu-link {
+    box-sizing: border-box;
+    display: flex;
+    height: 60px;
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+    width: auto;
+
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: border-color 150ms ease 0s, color 150ms ease 0s;
+
+    position: relative;
+    
+    min-width: 90px;
+  }
+
+  /* .ab-menu-link.active {
+    color: rgb(28, 126, 214);
+    border-bottom-color: rgb(28, 126, 214);
+  } */
+
+  .ab-nav-select {
+    margin-left: 1rem;
+    line-height: 60px;
+  }
+
+  .ab-menu-link::before {
+    opacity: 0;
+    transform: scaleY(1);
+    background-color: aqua;
+    block-size: 3px;
+    content: "";
+    inline-size: 48px;
+    position: absolute;
+    bottom: 4px;
+    margin: 0 auto;
+    width: 60px;
+    margin-left: calc(50% - 30px);
+    border-radius: 2px;
+    transition: all 150ms ease 0s, color 150ms ease 0s;
+  }
+
+  .ab-menu-link.active::before {
+    opacity: 1;
+    background-color: rgb(28, 126, 214);
+    block-size: 3px;
+    inline-size: 40px;
+    position: absolute;
+    width: 60%;
+    margin-left: 20%;
+  }
+
+  .ab-menu-link:hover::before {
+    opacity: 1;
+    /* border-bottom: 4px solid transparent;
+    height: 55px;
+    margin-bottom: 2px; */
+    width: 40px;
+    margin-left: calc(50% - 20px);
+    align-items:center;
+
+    background-color: rgb(0, 90, 180);
+    transition: all 150ms ease 0s, color 150ms ease 0s;
+    /* border-radius: 4px; */
+
+  }
+
+  .ab-link {
+    padding: 0 16px;
+    font-size: 1.125rem;
+    line-height: 60px;
+    color: var(--primary);
+  }
+
+  a {
+    text-decoration: none;
+    text-transform: none;
+  }
+
+  .ab-localities-selectors {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    -webkit-box-pack: end;
+  }
+
+  @media (min-width: 1000px) {
+    .sticky {
+      position: sticky;
+      z-index: 2000;
+    }
+
+    header .ab-anchor .ab-logo {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+  }
+</style>

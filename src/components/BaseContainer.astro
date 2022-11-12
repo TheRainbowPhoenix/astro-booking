@@ -1,0 +1,29 @@
+---
+interface Props {
+  vertical?: boolean;
+}
+
+const { vertical=true } = Astro.props;
+---
+
+<section class={ `container ${vertical&&"vertical"}` } id="top">
+   <slot />
+</section>
+
+<style>
+  .container {
+    min-height: 100vh;
+    max-width: 100vw; 
+    display: flex;
+    flex: 1;
+    flex-basis: auto;
+
+    box-sizing: border-box;
+  }
+
+  .container.vertical {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+  }
+</style>

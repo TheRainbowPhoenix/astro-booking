@@ -1,0 +1,23 @@
+---
+import LayoutBooking from "@layouts/LayoutBooking.astro";
+
+const param = Astro.params;
+const reservationCode = Astro.params?.reservationCode;
+const channelCode = Astro.params?.channelCode;
+
+// Fake for now
+const response = await fetch(`${Astro.url.origin}/api/property/${channelCode}`);
+const property = await response.json();
+
+let context = {
+    property: property
+}
+
+let title = "CONFIRMATION_PAGE";
+---
+
+<LayoutBooking title={title} context={context}>
+  <h1>{title}</h1>
+  <div>{property.name}</div>
+  <!-- Confirmation -->
+</LayoutBooking>
