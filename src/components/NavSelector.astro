@@ -1,0 +1,176 @@
+---
+
+interface Props {
+  name: string;
+  label: string;
+  items: any[] ; /* TODO */
+  activeItem: any; /* TODO */
+}
+
+const { name="test", items=[], activeItem, class: className  } = Astro.props as Props
+
+let uid = name +  "-" + className
+// let uid = name +  "-" + (Date.now()).toString(36).toUpperCase().split("").reverse().join("")
+---
+
+<div id={name + "-nav-selector"} class="ab-dropdown ab-nav-select" trigger="click" aria-label={activeItem} placement="bottom-start">
+    <div class="ab-input-field ab-dropdown-label">
+        <span class="ab-dropdown-link" aria-haspopup="list" aria-controls={"dropdown-menu-" + name} role="button" tabindex="0">
+            <span class="ab-name">{activeItem} </span>
+        </span>
+    </div>
+    <ul id={"dropdown-menu-" + name} class="ab-dropdown-menu" role="menu">
+        { items.map((i) => (
+            <li role="presentation" class={ i === activeItem ? "active" : ''}>
+                <span role="menuitem" tabindex="-1">{i}</span>
+            </li>
+        )) }
+    </ul>
+</div>
+
+<script is:inline define:vars={{ name: name, uid: uid }}>
+  // Critical
+  (() => {
+    // const overlay = document.getElementById(name + '-nav-selector');
+    // console.log(overlay);
+    // console.log(name);
+    // console.log(uid);
+  })();
+</script>
+
+<script define:vars={{ name: name, uid: uid }}>
+
+    const select = document.getElementById(name + '-nav-selector');
+    const menu = document.getElementById('dropdown-menu-' + name);
+    const btn = select.querySelector('.ab-dropdown-link[role="button"]')
+
+
+    console.log(select);
+    console.log(btn);
+
+    btn.addEventListener("click", (e) => {
+        menu.classList.toggle('open');
+    });
+
+    document.addEventListener("click", (event) => {
+        if (select && !select.contains(event.target) && !event.defaultPrevented) {
+            menu.classList.remove('open');
+            // select.dispatchEvent(new CustomEvent("clickOutside", select));
+        }
+    }, true);
+
+    // const destroy_click = clickOutside(select);
+
+    // console.log(style);
+</script>
+
+<style>
+    .ab-dropdown {
+        display: inline-block;
+        position: relative;
+        color: rgb(100, 104, 108);
+        font-size: 16px;
+        user-select: none;
+    }
+
+    .ab-dropdown-link {
+        cursor: pointer;
+    }
+
+    .ab-dropdown-link .ab-name {
+        font-size: 1.125rem;
+        padding-right: .5rem;
+    }
+
+    .ab-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        z-index: 1000;
+
+        float: left;
+        min-width: 200px;
+        padding: 6px 0;
+        margin: .5rem 0;
+        list-style: none;
+        background-color: #fff;
+        border: 1px solid #ebeef5;
+        border-radius: 4px;
+        box-shadow: 0 2px 1rem 0  rgba(0, 0, 0, 10%);
+
+        transform: scaleY(0);
+        opacity: 0;
+        display: none;
+
+        transition-property: transform, opacity;
+        transition-duration: .4s;
+        transition-timing-function: ease-in-out;
+    }
+
+    .ab-dropdown-menu.open {
+        transform: scaleY(1);
+        opacity: 1;
+        display: block;
+
+        transition-property: transform, opacity;
+        transition-duration: .4s;
+        transition-timing-function: ease-in-out;
+
+    }
+
+    .ab-dropdown-menu li {
+        align-items: center;
+        line-height: 32px;
+        block-size: 34px;
+        box-sizing: border-box;
+        margin: 3px 5px;
+        padding: 6px 8px;
+        cursor: default;
+        display: flex;
+        list-style: none;
+        position: relative;
+        font-size: 14px;
+        cursor: pointer;
+        outline: 0;
+        background-color: #fff;
+        transition: background-color .2s ease-in-out;
+        border-radius: .25rem;
+    }
+
+    .ab-dropdown-menu li.active {
+        background-color: hsl(0deg, 0%, 98%);
+        transition: background-color .2s ease-in-out;
+        cursor: default;
+    }
+
+    .ab-dropdown-menu li.active::before {
+        background-color: rgb(28,126,214);
+
+        block-size: 16px;
+        border-radius: 3px;
+        content: "";
+        inline-size: 3px;
+        inset-inline-end: 0;
+        opacity: 0;
+        position: absolute;
+        transform: scaleY(0);
+
+        
+        opacity: 1;
+        transform: scaleY(1);
+
+        /* content: "";
+        background-color: rgb(28,126,214);
+        block-size: 16px;
+        border-radius: 3px;
+        inline-size: 3px;
+        inset-inline-start: 0; */
+    }
+
+    .ab-dropdown-menu li:hover,
+    .ab-dropdown-menu li:focus  {
+        background-color: hsl(0deg, 0%, 97%);
+        transition: background-color .2s ease-in-out;
+
+    }
+</style>

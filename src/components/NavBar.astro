@@ -1,7 +1,11 @@
 ---
 
 import SkipToContent from "@components/SkipToContent.astro"
+import NavSelector from "@components/NavSelector.svelte"
+import NavSelectorAStro from "@components/NavSelector.astro"
 import type { Property } from "@utils/property"
+
+import { selectorsValues } from "@utils/stores"
 
 interface Props {
   property?: Property /* Property */ ;
@@ -18,7 +22,9 @@ function getRating() {
     return Math.floor(starRating);
 }
 
-const { property, vertical=true, currencies=["EUR", "USD"], currentCurrency="EUR"} = Astro.props;
+const cCurrency = selectorsValues['currency'] || "EUR";
+
+const { property, vertical=true, currencies=["EUR", "USD"], currentCurrency=cCurrency} = Astro.props;
 
 let website = property.website;
 let homePage = "";
@@ -94,6 +100,8 @@ const links = [
           {notDetailsPage && (
             <div class="ab-localities-selectors">
                 { currentCurrency && ( // && isReservationPage ?
+                    <NavSelector client:load name="currency" activeItem={currentCurrency} items={currencies} />
+                    <NavSelectorAStro name="lang" activeItem="EN" items={["EN", "FR", "DE"]} />
                     <div class="ab-nav-select" trigger="click" aria-label="EUR" placement="bottom-start">
                         <div class="ab-dropdown">
                             <span class="ab-dropdown-link" aria-haspopup="list" aria-controls="dropdown-currency-menu" role="button" tabindex="0">
@@ -196,7 +204,7 @@ const links = [
   }
 
   .ab-menu-link {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     display: flex;
     height: 60px;
     background-color: transparent;
