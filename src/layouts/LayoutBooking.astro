@@ -95,7 +95,8 @@ const { context, title } = Astro.props;
 
 <style is:global>
   :root {
-	--primary: #228be6;
+	--primary: #82009F; /* #228be6 */
+	--primary-darker: #640079; /* #228be6 */
 	--header-bg: #f6f6f6;
 	--font-ui: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
     --accent: 124, 58, 237;
@@ -108,11 +109,11 @@ const { context, title } = Astro.props;
   }
   html {
     font-family: var(--font-ui);
+	background-color: #ffeffe;
   }
   body {
 	padding: 0;
 	margin: 0;
-	background-color: #ffeffe;
   }
 
   code {

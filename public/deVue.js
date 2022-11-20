@@ -4,6 +4,13 @@
 */
 
 const featured_image = undefined;
+function $size(v) {
+  return v;
+}
+
+function $get(p, k, d) {
+  return p, k, d;
+}
 
 /*
     END.
@@ -243,408 +250,236 @@ var render = function () {
   var _c = _vm._self._c || _h;
   return _c(
     "div",
-    [
-      _c(
-        "a",
-        {
-          staticClass: "skip-link",
-          attrs: { href: _vm.$id("skiplink") },
-          on: {
-            click: function ($event) {
-              $event.preventDefault();
-              return _vm.focusNextElement($event);
-            },
-          },
-        },
-        [_vm._t("label")],
-        2
-      ),
-      _vm._t("default"),
-      _c("a", { ref: "skipTarget", attrs: { name: _vm.skipTarget } }),
-    ],
-    2
-  );
-};
-
-var render = function () {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c(
-    "sm-header",
     {
-      directives: [
-        {
-          name: "mq-listener",
-          rawName: "v-mq-listener",
-          value: {
-            mediaQueries: _vm.mediaQueries,
-            eventHandler: _vm.setIsDesktopFlag,
-          },
-          expression: "{ mediaQueries, eventHandler: setIsDesktopFlag }",
-        },
-      ],
-      staticClass: "header",
-      class: { sticky: _vm.isDesktop },
+      staticClass: "booking-page",
+      attrs: { "data-cy": "booking-page" },
     },
     [
-      _c(
-        "nav",
-        { staticClass: "navbar" },
-        [
-          !_vm.isDesktop
-            ? [
-                _vm.isCheckoutPage
-                  ? _c(
-                      "checkout-back-step-button",
-                      {
-                        attrs: {
-                          "has-applicable-extras": _vm.hasApplicableExtras,
-                        },
-                      },
-                      [
-                        _vm.website || _vm.homeLink
-                          ? _c("logo", _vm._b({}, "logo", _vm.logoProps, false))
-                          : _vm._e(),
-                        _vm.languages.length > 1
-                          ? _c(
-                              "native-selector",
+      _c("h1", { staticClass: "vh" }, [
+        _vm._v(
+          _vm._s(_vm.$t("Header.HamburgerMenu.Links.availability_link_label"))
+        ),
+      ]),
+      _vm.headerBannerImageUrl
+        ? _c("header-banner", {
+            attrs: { "banner-url": _vm.headerBannerImageUrl },
+          })
+        : _vm._e(),
+      _c("search-bar", _vm._b({}, "search-bar", _vm.searchBarProps, false)),
+      _vm.currentRoomIndex < _vm.$size(_vm.rooms) && _vm.currentRoomIndex > -1
+        ? _c(
+            "keep-alive",
+            [
+              _vm.$size(_vm.rooms) > 1
+                ? _c(
+                    "select-room-banner",
+                    {
+                      ref: "roomTabs",
+                      staticClass: "sticky",
+                      class: { animate: _vm.doAnimateCTA },
+                    },
+                    [
+                      _c("span", { attrs: { "aria-live": "polite" } }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm.$t(
+                              "SelectionPage.SelectionSteps.current_room_over_total_rooms_label",
                               {
-                                staticClass: "language-selector",
-                                attrs: {
-                                  items: _vm.languages,
-                                  "key-field": "locale",
-                                  "value-field": "locale",
-                                  "display-field": "nativeName",
-                                  selected: _vm.$get(
-                                    _vm.activeLanguage,
-                                    "locale"
-                                  ),
-                                },
-                                on: { change: _vm.updateLanguage },
-                              },
-                              [
-                                _c(
-                                  "template",
-                                  { slot: "label" },
-                                  [
-                                    _c("svgicon", {
-                                      attrs: {
-                                        focusable: "false",
-                                        icon: "icon-globe-alt",
-                                        width: "20",
-                                        height: "20",
-                                      },
-                                    }),
-                                  ],
-                                  1
-                                ),
-                              ],
-                              2
+                                current_room: _vm.currentRoomIndex + 1,
+                                total_rooms: _vm.$size(_vm.rooms),
+                              }
                             )
-                          : _vm._e(),
-                      ],
-                      1
-                    )
-                  : _c(
-                      "hamburger-menu",
-                      _vm._b(
-                        { ref: "hamburger-menu" },
-                        "hamburger-menu",
-                        _vm.hamburgerProps,
-                        false
-                      ),
-                      [
-                        _vm.website || _vm.homeLink
-                          ? _c(
-                              "logo",
-                              _vm._b(
-                                { attrs: { slot: "logo" }, slot: "logo" },
-                                "logo",
-                                _vm.logoProps,
-                                false
-                              )
-                            )
-                          : _vm._e(),
-                      ],
-                      1
-                    ),
-              ]
-            : [
-                _c(
-                  _vm.skipLink,
-                  { tag: "component" },
-                  [
-                    _c("template", { slot: "label" }, [
-                      _vm._v(
-                        _vm._s(
-                          _vm.$t("Header.SkipLink.skip_to_content_link_label")
-                        )
-                      ),
-                    ]),
-                    _c("template", { slot: "default" }, [
+                          )
+                        ),
+                      ]),
+                    ]
+                  )
+                : _vm._e(),
+            ],
+            1
+          )
+        : _vm._e(),
+      _c("sm-main", [
+        _c(
+          "div",
+          {
+            staticClass: "wrapper",
+            class: { "is-dropdown-open": _vm.isDropdownOpen },
+          },
+          [
+            _vm.isDesktop
+              ? [
+                  _c(
+                    "sm-row",
+                    { attrs: { gutter: 16 } },
+                    [
                       _c(
-                        "div",
-                        { staticClass: "wrapper" },
+                        "sm-col",
+                        {
+                          staticClass: "main-content--col",
+                          attrs: { sm: 16, md: 16 },
+                        },
                         [
-                          _vm.isCheckoutPage
-                            ? _c(
-                                "checkout-back-step-button",
-                                {
-                                  attrs: {
-                                    "has-applicable-extras":
-                                      _vm.hasApplicableExtras,
-                                  },
+                          _c(
+                            "section",
+                            { staticClass: "main-content" },
+                            [
+                              _vm.showNoVacancy
+                                ? _c(_vm.noVacancy, {
+                                    tag: "component",
+                                    attrs: {
+                                      "phone-number": _vm.$get(
+                                        _vm.property,
+                                        "contact.phone[0]",
+                                        null
+                                      ),
+                                    },
+                                  })
+                                : _vm._e(),
+                              _c("rooms", {
+                                attrs: {
+                                  roomtypes: _vm.roomtypes,
+                                  quotes: _vm.quotes,
+                                  "room-props": _vm.roomProps,
+                                  "unavailable-dates-per-rate":
+                                    _vm.unavailableDatesPerRate,
                                 },
-                                [
-                                  _vm.website || _vm.homeLink
-                                    ? _c(
-                                        "logo",
-                                        _vm._b({}, "logo", _vm.logoProps, false)
-                                      )
-                                    : _vm._e(),
-                                ],
-                                1
-                              )
-                            : _c(
-                                "div",
-                                { staticClass: "logo-and-links" },
-                                [
-                                  _vm.website || _vm.homeLink
-                                    ? _c(
-                                        "logo",
-                                        _vm._b({}, "logo", _vm.logoProps, false)
-                                      )
-                                    : _vm._e(),
-                                  _c(
-                                    "ul",
+                                on: {
+                                  "update-rate-id": _vm.doUpdateRateId,
+                                  "update-unavailable-dates":
+                                    _vm.updateUnavailableDates,
+                                },
+                              }),
+                              _vm.isSingleRoom
+                                ? _c(
+                                    "primary-button",
                                     {
-                                      ref: "menuLinks",
-                                      staticClass: "menu-links",
-                                      attrs: { role: "menu" },
+                                      staticClass: "show-all-rates-button",
+                                      attrs: { id: "showAllRates" },
+                                      on: { click: _vm.showAllRates },
                                     },
                                     [
-                                      _c(
-                                        "li",
-                                        { attrs: { role: "presentation" } },
-                                        [
-                                          _c(
-                                            "router-link",
-                                            {
-                                              staticClass: "router-link",
-                                              class: {
-                                                "router-link-active":
-                                                  _vm.isRouteActive(
-                                                    _vm.pages.booking
-                                                  ),
-                                              },
-                                              attrs: {
-                                                role: "menuitem",
-                                                to: _vm.homeLink,
-                                                exact: "",
-                                                tabindex: "0",
-                                              },
-                                            },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm.$t(
-                                                    "Header.HamburgerMenu.Links.availability_link_label"
-                                                  )
-                                                )
-                                              ),
-                                            ]
-                                          ),
-                                        ],
-                                        1
-                                      ),
-                                      _c(
-                                        "li",
-                                        { attrs: { role: "presentation" } },
-                                        [
-                                          _c(
-                                            "router-link",
-                                            {
-                                              staticClass: "router-link",
-                                              class: {
-                                                "router-link-active":
-                                                  _vm.isRouteActive(
-                                                    _vm.pages.about
-                                                  ),
-                                              },
-                                              attrs: {
-                                                role: "menuitem",
-                                                to: { name: _vm.pages.about },
-                                                exact: "",
-                                                tabindex: "0",
-                                              },
-                                            },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm.$t(
-                                                    "Header.HamburgerMenu.Links.about_link_label"
-                                                  )
-                                                )
-                                              ),
-                                            ]
-                                          ),
-                                        ],
-                                        1
-                                      ),
-                                      _c(
-                                        "li",
-                                        { attrs: { role: "presentation" } },
-                                        [
-                                          _c(
-                                            "router-link",
-                                            {
-                                              staticClass: "router-link",
-                                              class: {
-                                                "router-link-active":
-                                                  _vm.isRouteActive(
-                                                    _vm.pages.contact
-                                                  ),
-                                              },
-                                              attrs: {
-                                                role: "menuitem",
-                                                to: { name: _vm.pages.contact },
-                                                exact: "",
-                                                tabindex: "0",
-                                              },
-                                            },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm.$t(
-                                                    "Header.HamburgerMenu.Links.contact_link_label"
-                                                  )
-                                                )
-                                              ),
-                                            ]
-                                          ),
-                                        ],
-                                        1
-                                      ),
-                                      _c(
-                                        "li",
-                                        { attrs: { role: "presentation" } },
-                                        [
-                                          _c(
-                                            "router-link",
-                                            {
-                                              staticClass: "router-link",
-                                              class: {
-                                                "router-link-active":
-                                                  _vm.isRouteActive(
-                                                    _vm.pages.policies
-                                                  ),
-                                              },
-                                              attrs: {
-                                                role: "menuitem",
-                                                to: {
-                                                  name: _vm.pages.policies,
-                                                },
-                                                exact: "",
-                                                tabindex: "0",
-                                              },
-                                            },
-                                            [
-                                              _vm._v(
-                                                _vm._s(
-                                                  _vm.$t(
-                                                    "Header.HamburgerMenu.Links.policies_link_label"
-                                                  )
-                                                )
-                                              ),
-                                            ]
-                                          ),
-                                        ],
-                                        1
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.$t(
+                                            "SelectionPage.Content.show_all_rates"
+                                          )
+                                        )
                                       ),
                                     ]
+                                  )
+                                : _vm._e(),
+                            ],
+                            1
+                          ),
+                        ]
+                      ),
+                      _c(
+                        "sm-col",
+                        {
+                          ref: "aside",
+                          staticClass: "aside--col",
+                          attrs: { sm: 8, md: 8 },
+                        },
+                        [
+                          _vm.isQuotesFetched
+                            ? _c(
+                                "aside",
+                                { staticClass: "aside" },
+                                [
+                                  _c(
+                                    "booking-summary-cart",
+                                    _vm._b(
+                                      {
+                                        ref: "bookingSummary",
+                                        attrs: { showSubmitButton: true },
+                                        on: {
+                                          "booking-now": _vm.handleBookNow,
+                                          "remove-room": _vm.handleRemoveRoom,
+                                        },
+                                      },
+                                      "booking-summary-cart",
+                                      _vm.bookingSummaryProps,
+                                      false
+                                    )
                                   ),
                                 ],
                                 1
-                              ),
-                          _vm.notDetailsPage
+                              )
+                            : _vm._e(),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                ]
+              : [
+                  _c(
+                    "sm-row",
+                    { attrs: { gutter: 20 } },
+                    [
+                      _c(
+                        "sm-col",
+                        { attrs: { md: 24 } },
+                        [
+                          _vm.showNoVacancy
+                            ? _c(_vm.noVacancy, {
+                                tag: "component",
+                                attrs: {
+                                  "phone-number": _vm.$get(
+                                    _vm.property,
+                                    "contact.phone[0]",
+                                    null
+                                  ),
+                                },
+                              })
+                            : _vm._e(),
+                          _c("rooms", {
+                            attrs: {
+                              roomtypes: _vm.roomtypes,
+                              quotes: _vm.quotes,
+                              "room-props": _vm.roomProps,
+                              "unavailable-dates-per-rate":
+                                _vm.unavailableDatesPerRate,
+                            },
+                            on: {
+                              "update-rate-id": _vm.doUpdateRateId,
+                              "update-unavailable-dates":
+                                _vm.updateUnavailableDates,
+                            },
+                          }),
+                          _vm.isSingleRoom
                             ? _c(
-                                "div",
-                                { staticClass: "language-currency-selectors" },
+                                "primary-button",
+                                {
+                                  staticClass: "show-all-rates-button",
+                                  attrs: { id: "showAllRates" },
+                                  on: { click: _vm.showAllRates },
+                                },
                                 [
-                                  _vm.currencies && !_vm.isReservationPage
-                                    ? _c(_vm.navSelector, {
-                                        tag: "component",
-                                        staticClass: "nav-select",
-                                        attrs: {
-                                          "is-mobile": false,
-                                          items: _vm.filteredCurrencies,
-                                          "active-item": _vm.currencyToItem(
-                                            _vm.activeCurrency
-                                          ),
-                                        },
-                                        on: {
-                                          "selection-item": _vm.updateCurrency,
-                                        },
-                                        scopedSlots: _vm._u(
-                                          [
-                                            {
-                                              key: "prefix",
-                                              fn: function (ref) {
-                                                var item = ref.item;
-                                                return [
-                                                  _vm._v(
-                                                    " " +
-                                                      _vm._s(item.key) +
-                                                      " - "
-                                                  ),
-                                                ];
-                                              },
-                                            },
-                                          ],
-                                          null,
-                                          false,
-                                          457726366
-                                        ),
-                                      })
-                                    : _vm._e(),
-                                  _vm.languages.length > 1
-                                    ? _c(_vm.navSelector, {
-                                        ref: "languageSelector",
-                                        tag: "component",
-                                        staticClass: "nav-select",
-                                        attrs: {
-                                          "is-mobile": false,
-                                          items:
-                                            _vm.languages &&
-                                            _vm.languages.map(
-                                              _vm.languageToItem
-                                            ),
-                                          "active-item": _vm.languageToItem(
-                                            _vm.activeLanguage
-                                          ),
-                                        },
-                                        on: {
-                                          "selection-item": _vm.updateLanguage,
-                                        },
-                                      })
-                                    : _vm._e(),
-                                ],
-                                1
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.$t(
+                                        "SelectionPage.Content.show_all_rates"
+                                      )
+                                    )
+                                  ),
+                                ]
                               )
                             : _vm._e(),
                         ],
                         1
                       ),
-                    ]),
-                  ],
-                  2
-                ),
-              ],
-        ],
-        2
-      ),
-    ]
+                    ],
+                    1
+                  ),
+                ],
+          ],
+          2
+        ),
+      ]),
+    ],
+    1
   );
 };
 

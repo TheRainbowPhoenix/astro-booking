@@ -5,6 +5,7 @@ specifiers:
   '@astrojs/vercel': ^2.3.3
   '@nanostores/persistent': ^0.7.0
   astro: ^1.6.7
+  flatpickr: ^4.6.13
   nanostores: ^0.7.1
   svelte: ^3.46.4
 
@@ -13,6 +14,7 @@ dependencies:
   '@astrojs/vercel': 2.3.3
   '@nanostores/persistent': 0.7.0_nanostores@0.7.1
   astro: 1.6.7
+  flatpickr: 4.6.13
   nanostores: 0.7.1
   svelte: 3.53.1
 
@@ -1799,6 +1801,10 @@ packages:
     dependencies:
       micromatch: 4.0.5
       pkg-dir: 4.2.0
+    dev: false
+
+  /flatpickr/4.6.13:
+    resolution: {integrity: sha512-97PMG/aywoYpB4IvbvUJi0RQi8vearvU0oov1WW3k0WZPBMrTQVqekSX5CjSG/M4Q3i6A/0FKXC7RyAoAUUSPw==}
     dev: false
 
   /formdata-polyfill/4.0.10:

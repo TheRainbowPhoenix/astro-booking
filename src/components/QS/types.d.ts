@@ -1,0 +1,34 @@
+/// <reference path="./svelte-jsx.d.ts" />
+
+import { SvelteComponentTyped } from "svelte";
+import flatpickr from "flatpickr";
+
+export type HookProps = [Date[], string, flatpickr.Instance];
+
+export interface SvelteFlatpickrProps {
+  value?: Date | string | Date[];
+  formattedValue?: string;
+  element?: HTMLInputElement | string;
+  dateFormat?: string;
+  options?: flatpickr.Options.Options;
+  input?: HTMLInputElement | string;
+  fp?: flatpickr.Instance;
+  flatpickr?: flatpickr.Instance;
+}
+
+export class Flatpickr extends SvelteComponentTyped<
+  SvelteFlatpickrProps & svelteFlatpickr.JSX.SvelteInputProps,
+  {
+    change: CustomEvent<HookProps>;
+    open: CustomEvent<HookProps>;
+    close: CustomEvent<HookProps>;
+    monthChange: CustomEvent<HookProps>;
+    yearChange: CustomEvent<HookProps>;
+    ready: CustomEvent<HookProps>;
+    valueUpdate: CustomEvent<HookProps>;
+    dayCreate: CustomEvent<HookProps>;
+  },
+  {}
+> {}
+
+export default Flatpickr;

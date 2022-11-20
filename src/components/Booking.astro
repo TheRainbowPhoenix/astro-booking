@@ -1,0 +1,118 @@
+---
+import HeaderBanner from "@components/HeaderBanner.astro";
+import SearchBar from "@components/SearchBar.astro";
+
+function $t(key) {
+    return key;
+}
+
+export interface Props {
+  context: {
+    channelCode?: string,
+	property?: Property;
+  }
+}
+
+let navBarVisible = true;
+
+const { context } = Astro.props;
+
+const response = await fetch(`${Astro.url.origin}/api/property/${context.channelCode}/rooms`);
+let rooms = await response.json();
+
+---
+
+<div class="ab-booking">
+    <h1 class="vh">{$t("Header.HamburgerMenu.Links.availability_link_label")}</h1>
+    <HeaderBanner url="/assets/banner.png"/>
+    <SearchBar />
+    <main class="ab-main">
+        <div class="wrapper">
+            {
+                rooms && rooms.rooms.map((room) => (
+                    <div class="ab-room-card">
+                        <h2>{room.name}</h2>
+                        <code style="display: none;">
+                        {JSON.stringify(room)}</code>
+                        <div>
+                            <span>Features</span>
+                            <ul class="ab-features-list">
+                                <li><div><span>{room.bedrooms[0]}</span></div></li>
+                                <li><div><span>{room.bathrooms} Bathroom</span></div></li>
+                            </ul>
+                            <div>
+                                <span>Amenities</span>
+                                <ul class="ab-amenity-list">
+                                    <li><div><span>{room.dimensions.sqm}m²</span></div></li>
+                                    <li><div><span>•</span><span>{room.view}</span></div></li>
+                                </ul>
+
+                            </div>
+                            <div>
+                                <p>{room.description}</p>    
+                            </div>
+                            <!-- Price and conditions ? -->
+                            <button class="ab-room-choose">Choose</button>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </main>
+</div>
+
+<style>
+    .ab-booking {
+        min-height: auto;
+    }
+
+    .vh {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        outline: 0;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    .ab-room-card {
+        max-width: 1100px;
+        box-sizing: border-box;
+        min-height: 6rem;
+        padding: 0.5rem 1.5rem 0 1rem;
+        background-color: #fff;
+        border-radius: 0.5rem;
+        margin: 0 auto;
+        box-shadow: 0 8px 32px -12px rgba(160, 180, 200, 30%);
+        padding-bottom: .5rem;
+        margin-bottom: 2rem;
+        z-index: 20;
+    }
+
+    .ab-amenity-list {
+        margin: 0;
+        padding: 0;
+        list-style: disc;
+    }
+
+    .ab-amenity-list li {
+        list-style: none;
+        display: inline;
+        line-height: 18px;
+    }
+
+    .ab-room-choose {
+        min-width: 3rem;
+        min-height: 3rem;
+        font-size: 1rem;
+        cursor: pointer;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        border-radius: .5rem;
+        padding: .5rem 1.5rem ;
+    }
+</style>

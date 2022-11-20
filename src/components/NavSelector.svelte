@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { selectorsValues } from "@utils/stores";
+  import { encr, decr } from "@utils/crypto";
 
   import { clickOutside } from "@utils/interactive";
   export let name: string;
@@ -10,7 +11,13 @@
   let open = false;
 
   function toggleMenu(e) {
-    open = !open;
+    if (!open) {
+      open = true;
+      console.log(e);
+      e.target.firstElementChild.focus();
+    } else {
+      open = false;
+    }
   }
 
   function closeMenu(e) {
@@ -34,8 +41,13 @@
   function setItem(i) {
     console.log(i);
     selectorsValues.setKey(name, i);
+    document.cookie = `select:${name}=${encr(i)}`;
     console.log(selectorsValues.get()[name]);
   }
+
+  const focusFirstDropdownLink = ({ target }) => {
+    // target.firstElementChild.focus();
+  };
 </script>
 
 <div
@@ -44,18 +56,19 @@
   aria-label={activeItem}
 >
   <div
-    class="ab-input-field ab-dropdown-label"
+    id={name + "-nav-selector-btn"}
+    class="ab-dropdown-btn"
     on:click={toggleMenu}
     on:keypress={toggleMenu}
+    role="button"
+    aria-expanded={open}
+    aria-haspopup="true"
+    data-toggle="dropdown"
+    aria-controls={"dropdown-menu-" + name}
+    tabindex="0"
   >
-    <span
-      class="ab-dropdown-link"
-      aria-haspopup="listbox"
-      aria-controls={"dropdown-menu-" + name}
-      role="button"
-      tabindex="0"
-    >
-      <span class="ab-name">{activeItem} </span>
+    <span class="ab-dropdown-link">
+      <span class="ab-name">{activeItem}</span>
     </span>
   </div>
   <ul
@@ -63,16 +76,19 @@
     class="ab-dropdown-menu"
     class:open
     role="menu"
+    on:transitionend={(e) => {
+      console.log(e);
+      focusFirstDropdownLink(e);
+    }}
     use:clickOutside
     on:clickOutside={closeMenu}
+    aria-labelledby={name + "-nav-selector-btn"}
   >
     {#each items as i}
-      <li
-        role="presentation"
-        class={i === activeItem ? "active" : ""}
-        on:click={() => setItem(i)}
-      >
-        <span role="menuitem" tabindex="-1">{i}</span>
+      <li role="presentation" class={i === activeItem ? "active" : ""}>
+        <button on:click={() => setItem(i)}>
+          <span role="menuitem" tabindex="-1">{i}</span>
+        </button>
       </li>
     {/each}
   </ul>
@@ -87,7 +103,7 @@
     user-select: none;
   }
 
-  .ab-dropdown-link {
+  .ab-dropdown-btn {
     cursor: pointer;
   }
 
@@ -132,33 +148,58 @@
   }
 
   .ab-dropdown-menu li {
-    align-items: center;
+    /* align-items: center;
     line-height: 32px;
-    block-size: 34px;
+    block-size: 34px; */
     box-sizing: border-box;
     margin: 3px 5px;
+    /* display: flex; */
+    position: relative;
+    align-items: center;
+    /* padding: 6px 8px; */
+    /* 
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 0.25rem; */
+  }
+
+  .ab-dropdown-menu li button {
+    align-items: center;
+    line-height: 32px;
+    block-size: 32px;
+    flex: 0 1 180px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
     padding: 6px 8px;
+    border: 0;
     cursor: default;
     display: flex;
     list-style: none;
     position: relative;
     font-size: 14px;
     cursor: pointer;
-    outline: 0;
+    /* outline: 0; */
     background-color: #fff;
     transition: background-color 0.2s ease-in-out;
     border-radius: 0.25rem;
+    color: rgb(100, 104, 108);
+    font-size: 14px;
+    user-select: none;
   }
 
-  .ab-dropdown-menu li.active {
+  .ab-dropdown-menu li button span {
+    width: 100%;
+    text-align: left;
+  }
+
+  .ab-dropdown-menu li.active,
+  .ab-dropdown-menu li.active button {
     background-color: hsl(0deg, 0%, 98%);
     transition: background-color 0.2s ease-in-out;
     cursor: default;
   }
 
-  .ab-dropdown-menu li.active::before {
-    background-color: rgb(28, 126, 214);
-
+  .ab-dropdown-menu li::before {
     block-size: 16px;
     border-radius: 3px;
     content: "";
@@ -167,6 +208,18 @@
     opacity: 0;
     position: absolute;
     transform: scaleY(0);
+    z-index: 99;
+    margin: 8px 0;
+
+    transition-property: transform, opacity;
+    transition-duration: 0.4s;
+    transition-timing-function: ease-in-out;
+  }
+
+  .ab-dropdown-menu li.active::before {
+    background-color: rgb(28, 126, 214);
+
+    /* margin-right: -1.5px; */
 
     opacity: 1;
     transform: scaleY(1);
@@ -177,10 +230,14 @@
         border-radius: 3px;
         inline-size: 3px;
         inset-inline-start: 0; */
+
+    transition-property: transform, opacity;
+    transition-duration: 0.4s;
+    transition-timing-function: ease-in-out;
   }
 
-  .ab-dropdown-menu li:hover,
-  .ab-dropdown-menu li:focus {
+  .ab-dropdown-menu li button:hover,
+  .ab-dropdown-menu li button:focus {
     background-color: hsl(0deg, 0%, 97%);
     transition: background-color 0.2s ease-in-out;
   }

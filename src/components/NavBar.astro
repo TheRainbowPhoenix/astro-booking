@@ -6,10 +6,12 @@ import NavSelectorAStro from "@components/NavSelector.astro"
 import type { Property } from "@utils/property"
 
 import { selectorsValues } from "@utils/stores"
+import { xoxoxor, encr, decr } from "@utils/crypto"
 
 interface Props {
   property?: Property /* Property */ ;
   name: string;
+  slug?: string;
   timezoneoffset?: string;
   currencies?: string[]; /* Currency[] */
   languages?: string[]; /* Language[] */
@@ -24,7 +26,14 @@ function getRating() {
 
 const cCurrency = selectorsValues['currency'] || "EUR";
 
-const { property, vertical=true, currencies=["EUR", "USD"], currentCurrency=cCurrency} = Astro.props;
+let {
+    property,
+    vertical=true,
+    currencies=["EUR", "USD"],
+    currentCurrency=selectorsValues['currency'] || "EUR",
+    languages=["EN", "FR", "DE"],
+    currentLang=selectorsValues['lang'] || "EN",
+} = Astro.props;
 
 let website = property.website;
 let homePage = "";
@@ -32,9 +41,11 @@ let homePage = "";
 const isCheckOutPage = false;
 // /^\/(\w+\/)?(properties)\/([a-zA-Z0-9\-]+)$/i.test(Astro.url.pathname);
 
+// /^\/(\w+\/)?(reservations)\/([a-zA-Z0-9\-]+)$/i.test(Astro.url.pathname) ||
+// /^\/(\w+\/)?(cancellations)\/([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)$/i.test(Astro.url.pathname)
 const notDetailsPage = !(
-    /^\/(\w+\/)?(reservations)\/([a-zA-Z0-9\-]+)$/i.test(Astro.url.pathname) ||
-    /^\/(\w+\/)?(cancellations)\/([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)$/i.test(Astro.url.pathname)
+    /(\w+\/)?(reservations)\/([a-zA-Z0-9\-]+)$/i.test(Astro.url.pathname) ||
+    /(\w+\/)?(cancellations)\/([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)$/i.test(Astro.url.pathname)
 )
 // :channelCode/reservations/:reservationCode || /:clientName?/cancellations/:channelCode/:reservationCode
 
@@ -45,6 +56,19 @@ const links = [
     { name: "Policies", href: `/properties/${property.uuid}/policies`},
 ]
 
+if(Astro.cookies.has('select:currency')) {
+  let select_currency = decr(Astro.cookies.get('select:currency').value);
+    if (currencies.includes(select_currency)) {
+        currentCurrency = select_currency;
+    }
+}
+
+if(Astro.cookies.has('select:lang')) {
+  let select_lang = decr(Astro.cookies.get('select:lang').value);
+    if (languages.includes(select_lang)) {
+        currentLang = select_lang;
+    }
+}
 ---
 
 <header class="ab-header sticky">
@@ -101,25 +125,19 @@ const links = [
             <div class="ab-localities-selectors">
                 { currentCurrency && ( // && isReservationPage ?
                     <NavSelector client:load name="currency" activeItem={currentCurrency} items={currencies} />
-                    <NavSelectorAStro name="lang" activeItem="EN" items={["EN", "FR", "DE"]} />
-                    <div class="ab-nav-select" trigger="click" aria-label="EUR" placement="bottom-start">
-                        <div class="ab-dropdown">
-                            <span class="ab-dropdown-link" aria-haspopup="list" aria-controls="dropdown-currency-menu" role="button" tabindex="0">
-                                <span class="ab-name">{currentCurrency}</span>
-                            </span>
-                        </div>
-                    </div>
+                    <NavSelectorAStro name="currency" activeItem={currentCurrency} items={currencies} />
+                    <NavSelector client:load name="lang" activeItem={currentLang} items={languages} />
                 )}
             </div>
           )}
         </div>
+        <!-- <a href="#">a</a>
         <a href="#">a</a>
         <a href="#">a</a>
-        <a href="#">a</a>
-        <a href="#">a</a>
+        <a href="#">a</a> -->
       </SkipToContent>
-      <a href="#">a</a>
-      <a href="#">a</a>
+      <!-- <a href="#">a</a>
+      <a href="#">a</a> -->
     </div>
   </nav>
 </header>
@@ -249,7 +267,7 @@ const links = [
 
   .ab-menu-link.active::before {
     opacity: 1;
-    background-color: rgb(28, 126, 214);
+    background-color: var(--primary);
     block-size: 3px;
     inline-size: 40px;
     position: absolute;
@@ -266,7 +284,7 @@ const links = [
     margin-left: calc(50% - 20px);
     align-items:center;
 
-    background-color: rgb(0, 90, 180);
+    background-color: var(--primary-darker);
     transition: all 150ms ease 0s, color 150ms ease 0s;
     /* border-radius: 4px; */
 

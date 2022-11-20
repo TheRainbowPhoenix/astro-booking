@@ -20,7 +20,8 @@ const { label="Skip to content" } = Astro.props;
         function isFocusable(el) {
             const focusableNodeTypes = ['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA']
             const focusableNodeAttributes = ['href', 'tabindex']
-            return focusableNodeTypes.indexOf(el.nodeName) > -1 || focusableNodeAttributes.some(attr => el.hasAttribute(attr))
+            const hidden = el.hasAttribute("hidden")
+            return !hidden && (focusableNodeTypes.indexOf(el.nodeName) > -1 || focusableNodeAttributes.some(attr => el.hasAttribute(attr)))
         }
 
         function focusNextFocusable(el) {
@@ -32,7 +33,7 @@ const { label="Skip to content" } = Astro.props;
             }
 
             if (next) {
-                const focus = isFocusable(next) ? next : next.querySelector('button, [href], input, select, textarea, [tabindex]');
+                const focus = isFocusable(next) ? next : next.querySelector('button, [href], input:not([type=hidden]), select, textarea, [tabindex]');
                 if (!focus) {
                     this.focusNextElement(next)
                 } else {
@@ -67,6 +68,10 @@ const { label="Skip to content" } = Astro.props;
 </script>
 
 <style>
+    .skipBar {
+        width: 100%;
+    }
+
     .skipContent {
         position: absolute;
         z-index: 100;

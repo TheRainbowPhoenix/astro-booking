@@ -1,0 +1,42 @@
+---
+export interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+---
+
+
+<div class="ab-header-banner">
+    <div class="ab-banner-img" style={`background-image: url("${url}")`}></div>
+</div>
+
+<style>
+    .ab-header-banner {
+        display: block;
+        margin-top: -6rem;
+
+        position: sticky;
+        top: -25%;
+        z-index: -1;
+    }
+
+    .ab-banner-img {
+        display: none;
+        position: relative;
+    }
+
+@media (min-width: 768px) {
+    .ab-banner-img {
+        display:block;
+        height: 350px;
+        width: 100%;
+        background-size: cover
+    }
+
+    .ab-banner-img {
+        border-bottom-left-radius: 12% 15%;
+        border-bottom-right-radius: 12% 15%;
+    }
+}
+</style>

@@ -13,13 +13,13 @@ let uid = name +  "-" + className
 // let uid = name +  "-" + (Date.now()).toString(36).toUpperCase().split("").reverse().join("")
 ---
 
-<div id={name + "-nav-selector"} class="ab-dropdown ab-nav-select" trigger="click" aria-label={activeItem} placement="bottom-start">
+<div id={"ab-" + name + "-nav-selector"} class="ab-dropdown ab-nav-select" trigger="click" aria-label={activeItem} placement="bottom-start">
     <div class="ab-input-field ab-dropdown-label">
-        <span class="ab-dropdown-link" aria-haspopup="list" aria-controls={"dropdown-menu-" + name} role="button" tabindex="0">
+        <span class="ab-dropdown-link" aria-haspopup="list" aria-controls={"ab-dropdown-menu-" + name} role="button" tabindex="0">
             <span class="ab-name">{activeItem} </span>
         </span>
     </div>
-    <ul id={"dropdown-menu-" + name} class="ab-dropdown-menu" role="menu">
+    <ul id={"ab-dropdown-menu-" + name} class="ab-dropdown-menu" role="menu">
         { items.map((i) => (
             <li role="presentation" class={ i === activeItem ? "active" : ''}>
                 <span role="menuitem" tabindex="-1">{i}</span>
@@ -39,9 +39,10 @@ let uid = name +  "-" + className
 </script>
 
 <script define:vars={{ name: name, uid: uid }}>
+    console.log(document.cookie);
 
-    const select = document.getElementById(name + '-nav-selector');
-    const menu = document.getElementById('dropdown-menu-' + name);
+    const select = document.getElementById('ab-' + name + '-nav-selector');
+    const menu = document.getElementById('ab-dropdown-menu-' + name);
     const btn = select.querySelector('.ab-dropdown-link[role="button"]')
 
 
@@ -58,6 +59,10 @@ let uid = name +  "-" + className
             // select.dispatchEvent(new CustomEvent("clickOutside", select));
         }
     }, true);
+
+    window.addEventListener("storage", (t) => {
+        console.log(t);
+    })
 
     // const destroy_click = clickOutside(select);
 
