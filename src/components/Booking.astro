@@ -38,7 +38,7 @@ let rooms = await response.json();
     <SearchBar />
     <main class="ab-main">
         <div class="wrapper">
-            <div class="grid grid-cols-12 gap-4 clear-both relative -mx-2 leading-5 text-zinc-800">
+            <div class="grid grid-cols-12 gap-4 clear-both relative leading-5 text-zinc-800">
                 <div class="col col-span-12 lg:col-span-8 px-2">
                     <section class="main-content">
                         <div class="rooms">
@@ -53,12 +53,12 @@ let rooms = await response.json();
                         </div>
                     </section>
                 </div>
-                <dir class="col col-span-12 lg:col-span-4 px-2">
+                <div class="col col-span-12 lg:col-span-4 px-2">
                     <aside class="sticky" style="top: 88px">
                         <Cart client:load/>
                     </aside>
                     <!-- TODO: Basket -->
-                </dir>
+                </div>
             </div>
         </div>
     </main>
@@ -101,6 +101,10 @@ let rooms = await response.json();
         margin-bottom: 2rem;
         z-index: 20;
         overflow: hidden;
+    }
+
+    .main-content {
+        @apply mt-12 lg:mt-auto;
     }
 
     .ab-room-card h2 {

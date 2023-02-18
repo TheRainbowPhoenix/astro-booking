@@ -71,7 +71,7 @@ if(Astro.cookies.has('select:lang')) {
 }
 ---
 
-<header class="ab-header sticky">
+<header class="ab-header">
   <nav class="ab-navbar">
     <div class="ab-mobile" style="display: none">
       {isCheckOutPage ? (
@@ -179,6 +179,7 @@ if(Astro.cookies.has('select:lang')) {
     margin: 0 18px;
     border-radius: 0.25rem;
     margin-top: 1rem;
+    @apply fixed lg:sticky w-full lg:w-auto m-0 lg:mx-4 lg:mt-4 z-30;
   }
 
   :global(body.mobile-show-booking .ab-header) {

@@ -15,9 +15,13 @@ function handleSubmit(e) {
             <!-- TODO: place picker / promo code here ? -->
         </form>
     </div>
+    <div class="ab-qs-mobile">
+        TODO QS
+        <!-- TODO ! -->
+    </div>
 </div>
 
-<style>
+<style lang="postcss">
     form {
         display: flex;
     }
@@ -34,6 +38,10 @@ function handleSubmit(e) {
 
     .ab-qs-mobile {
         display: none;
+    }
+
+    .ab-quick-search {
+        @apply mt-16 md:mt-0;
     }
 
     @media (max-width: 767px) {
