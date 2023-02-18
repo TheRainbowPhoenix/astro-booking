@@ -67,7 +67,7 @@
   </div>
 
   <div class="booking-summary-body">
-    <section class="section pb-4">
+    <section class="section check-in-out">
       <CheckInCheckOutDates
         check_in_date={checkInDate}
         check_out_date={checkOutDate}
@@ -78,7 +78,7 @@
     </section>
 
     <div class="room-selection">
-      <section class="section">
+      <section class="section scroll-min">
         <RoomsSection />
       </section>
       {#each perBookingExtras as extra}
@@ -146,14 +146,31 @@
     @apply bg-white px-4 pt-4 pb-0 border-solid rounded-lg border border-slate-300 hidden lg:block;
   }
 
+  .booking-summary-body {
+    @apply flex-grow lg:flex-grow-0 flex flex-col min-h-0;
+  }
+
+  .room-selection {
+    @apply flex flex-col flex-grow lg:flex-grow-0 justify-between min-h-0;
+  }
+
+  .booking-summary-heading,
+  .booking-summary-footer {
+    @apply mx-4 lg:mx-0;
+  }
+
   .booking-summary-body,
   .booking-summary-heading,
   .booking-summary-footer {
-    @apply mx-4 md:mx-auto lg:mx-0 md:max-w-[400px] lg:max-w-none;
+    @apply md:mx-auto lg:mx-0 md:max-w-[400px] lg:max-w-none;
+  }
+
+  .check-in-out {
+    @apply pb-4 mx-4 lg:mx-0;
   }
 
   .booking-summary-heading {
-    @apply mt-4 lg:mt-0;
+    @apply mt-4 lg:mt-0 flex flex-col overflow-hidden min-h-0;
   }
 
   .mobile-header {
@@ -178,11 +195,15 @@
   }
 
   :global(body.mobile-show-booking .booking-summary) {
-    @apply fixed lg:relative w-full lg:w-auto h-full lg:h-auto top-0 block pt-4 rounded-none border-none;
+    @apply fixed lg:relative w-full lg:w-auto h-full lg:h-auto top-0 flex flex-col pt-4 left-0 right-0 bottom-0 rounded-none border-none overflow-hidden min-h-0;
+  }
+
+  .scroll-min {
+    @apply overflow-x-hidden overflow-y-auto;
   }
 
   .section {
-    @apply border-0 border-b border-solid border-slate-300;
+    @apply border-0 border-b border-solid border-slate-300 flex flex-col;
   }
 
   .booking-summary-footer {

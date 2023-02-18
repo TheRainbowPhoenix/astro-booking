@@ -8,6 +8,31 @@
       name: "Deluxe Room",
       cancellation: [{ message: "Cancellation fee applies" }],
     },
+    {
+      type: "Sharing",
+      name: "Deluxe Room",
+      cancellation: [{ message: "Cancellation fee applies" }],
+    },
+    {
+      type: "Sharing",
+      name: "Deluxe Room",
+      cancellation: [{ message: "Cancellation fee applies" }],
+    },
+    {
+      type: "Sharing",
+      name: "Deluxe Room",
+      cancellation: [{ message: "Cancellation fee applies" }],
+    },
+    {
+      type: "Sharing",
+      name: "Deluxe Room",
+      cancellation: [{ message: "Cancellation fee applies" }],
+    },
+    {
+      type: "Sharing",
+      name: "Deluxe Room",
+      cancellation: [{ message: "Cancellation fee applies" }],
+    },
   ];
 
   function removeRoom(index: number) {}
@@ -114,5 +139,9 @@
 
   .details {
     @apply flex justify-between;
+  }
+
+  .summary-rooms {
+    @apply mx-4 lg:mx-0;
   }
 </style>

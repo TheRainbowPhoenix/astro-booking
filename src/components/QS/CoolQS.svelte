@@ -232,6 +232,11 @@
     position: relative;
   }
 
+  :global(.mobile-show-booking .ab-qs-label),
+  :global(.mobile-show-booking .ab-people-label) {
+    display: none;
+  }
+
   .ab-qs-label {
     font-size: 0.875rem;
     line-height: 1.25rem;

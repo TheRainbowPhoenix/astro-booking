@@ -86,4 +86,7 @@
 </button>
 
 <style lang="postcss">
+  :global(body.mobile-show-booking) {
+    overflow-y: hidden;
+  }
 </style>

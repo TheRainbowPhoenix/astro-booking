@@ -22,7 +22,7 @@
 
 <style lang="postcss">
   .total {
-    @apply pb-4 leading-5 text-zinc-800;
+    @apply lg:pb-4 leading-5 text-zinc-800;
   }
   .total-content {
     @apply inline-block pt-4 -mb-2 w-full text-base leading-6;
@@ -35,7 +35,7 @@
   }
 
   .tip {
-    @apply p-4 text-sm bg-violet-50 rounded border-transparent border-solid pointer-events-none relative;
+    @apply hidden lg:flex p-4 text-sm bg-violet-50 rounded border-transparent border-solid pointer-events-none relative;
   }
 
   .tip:before {
