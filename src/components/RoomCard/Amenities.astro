@@ -1,0 +1,66 @@
+---
+import { Amenity } from 'types';
+
+interface Props {
+  amenities?: Amenity[];
+}
+
+const {
+  amenities = []
+} = Astro.props
+
+
+---
+
+<div
+  class="overflow-hidden overflow-ellipsis"
+>
+  <div
+    class="mt-4 text-xs list-none lg:text-sm list-item text-zinc-600"
+  >
+    <span
+      class="vh"
+      >Amenities</span
+    >
+    <ul
+      class="amenity-list"
+    >
+        {amenities.map((amenity) => (
+            <li
+        class="feature"
+      >
+        <span class="bullet">•</span><span
+          class="scroll-smooth">{amenity.name}</span>
+      </li>
+
+        ))}
+    </ul>
+  </div>
+</div>
+
+
+<style lang="postcss">
+     .vh {
+        @apply overflow-hidden absolute p-0 -m-px w-px h-px border-0;
+    }
+
+    .amenity-list {
+        @apply p-0 m-0 leading-4
+    }
+
+    .feature {
+        @apply inline mt-1 text-left
+    }
+
+    .amenity-list .feature:nth-child(1) {
+        @apply mt-0
+    }
+
+    .bullet {
+        @apply my-auto mx-1
+    }
+
+    .amenity-list .feature:nth-child(1) > .bullet {
+        @apply hidden
+    }
+</style>

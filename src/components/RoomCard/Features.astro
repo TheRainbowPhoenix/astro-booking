@@ -1,0 +1,106 @@
+---
+interface Props {
+  bedrooms?: string[];
+  occupancy: number;
+}
+
+const {
+  bedrooms = [],
+  occupancy = 0
+} = Astro.props
+---
+
+<ul
+  class="room-content-config"
+>
+  {occupancy > 0 && (
+    <li
+    class="feature"
+  >
+    <div
+      class="icon-text"
+    >
+      <span
+        class="icon"
+        role="presentation"
+        ><svg
+          version="1.1"
+          viewBox="0 0 24 24"
+          focusable="false"
+          aria-hidden="true"
+        >
+          <path
+            d="M15.707 10H8.293A4.294 4.294 0 004 14.293v8.64h3.023v-8.282h.5v8.282h8.955v-8.282h.5v8.282H20v-8.64A4.293 4.293 0 0015.707 10M12 9A4 4 0 1012 1.001a4 4 0 000 8"
+            fill="#333"
+            fill-rule="evenodd"
+            class="leading-3"
+          ></path>
+        </svg>
+      </span><span
+        class="text"
+        >For {occupancy}</span
+      >
+    </div>
+  </li>
+  )}
+
+  {bedrooms.map((bedroom) => (
+    <li
+    class="feature"
+  >
+    <div
+      class="icon-text"
+    >
+      <span
+        class="icon"
+        role="presentation"
+        ><svg
+          version="1.1"
+          viewBox="0 0 24 24"
+          focusable="false"
+          aria-hidden="true"
+        >
+          <path
+            d="M13.2 10h6V6.4h-6V10zm-8.4 0h6V6.4h-6V10zm16.8 0V6.4c0-1.32-1.08-2.4-2.4-2.4H4.8C3.48 4 2.4 5.08 2.4 6.4V10C1.08 10 0 11.08 0 12.4v6h1.596l.804 2.4h1.2l.804-2.4h15.204l.792 2.4h1.2l.804-2.4H24v-6c0-1.32-1.08-2.4-2.4-2.4z"
+            fill="#333"
+            fill-rule="evenodd"
+            class="leading-3"
+          ></path>
+        </svg>
+      </span><span
+        class="text"
+        >{bedroom}</span
+      >
+    </div>
+  </li>
+  ))}
+
+  
+</ul>
+
+
+<style lang="postcss">
+    .room-content-config {
+        @apply p-0 m-0 text-sm leading-6 text-zinc-800;
+    }
+
+    .feature {
+        @apply inline mt-0 mr-3 list-none text-left;
+    }
+
+    .icon-text {
+      @apply inline-block relative font-sans text-xs not-italic font-normal normal-case lg:text-sm text-neutral-700
+    }
+
+    .icon {
+      @apply inline-block absolute top-0 left-0 w-4 h-4 leading-none align-middle
+    }
+
+    .icon svg {
+      @apply inline-block w-4 h-4 fill-current pointer-events-none
+    }
+
+    .text {
+      @apply pl-5 leading-4
+    }
+</style>

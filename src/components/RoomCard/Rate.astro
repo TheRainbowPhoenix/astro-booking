@@ -1,0 +1,138 @@
+---
+import { Rate } from 'types';
+
+interface Props {
+  rate: Rate;
+}
+
+const { brate } = Astro.props;
+---
+
+<div class="rate-wrapper">
+    <h3 class="rate-name">
+        <button type="button">
+            <span>
+                Deluxe Room Sharing
+            </span>
+        </button>
+    </h3>
+    <div class="rate-content">
+        <div class="rate-inclusions">
+            <div class="inclusion upsell">
+                <span class="sm-icon" role="presentation">
+                    <svg version="1.1" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                        <path d="M6.622 12.049a1 1 0 10-1.379 1.449l3.89 3.7a1 1 0 00.689.277l.033-.001c.268-.01.521-.125.704-.322l12.08-12.998A1 1 0 0021.166 2.8L9.773 15.049l-3.151-3zm16.982-3.124a1.001 1.001 0 00-1.933.514 9.928 9.928 0 01.27 3.648 9.93 9.93 0 01-3.68 6.71 9.906 9.906 0 01-7.347 2.143 9.932 9.932 0 01-6.71-3.681A9.929 9.929 0 012.06 10.91 9.936 9.936 0 015.74 4.2a9.926 9.926 0 017.348-2.142c.902.098 1.784.317 2.62.649a.999.999 0 10.74-1.857A12 12 0 0013.306.07C6.733-.64.793 4.116.072 10.695a11.928 11.928 0 002.571 8.817 11.924 11.924 0 008.054 4.416c.445.049.888.072 1.328.072 2.718 0 5.338-.916 7.49-2.643a11.924 11.924 0 004.415-8.052 11.938 11.938 0 00-.326-4.38z" fill="#333" fill-rule="evenodd" class="scroll-smooth"></path>
+                    </svg>
+                </span>
+                <span>Book now, pay later</span>
+            </div>
+            <div class="inclusion">
+                <span class="sm-icon" role="presentation">
+                    <svg version="1.1" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                        <path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm0 2.182c-5.422 0-9.818 4.396-9.818 9.818S6.578 21.818 12 21.818s9.818-4.396 9.818-9.818S17.422 2.182 12 2.182zm0 14.182a1.09 1.09 0 110 2.181 1.09 1.09 0 010-2.181zm0-10.91c.602 0 1.09.489 1.09 1.091v7.091a1.09 1.09 0 11-2.18 0v-7.09c0-.603.488-1.091 1.09-1.091z" fill="#717171" fill-rule="evenodd" class="scroll-smooth"></path>
+                    </svg>
+                </span>
+                <span>Cancellation fee applies</span>
+            </div>
+
+        </div>
+        <div class="rate-price">
+            <!---->
+            <div class="mt-2 md:mt-4">
+                <!---->
+                <div class="rate-available">
+                    <div class="rate-price-wrap">
+                        <div class="book-price">
+                            <div class="md:leading-snug">
+                                <div class="leading-5">
+                                    <!---->
+                                </div>
+                                <div class="leading-5">
+                                    <span class="overflow-hidden absolute p-0 -m-px w-px h-px border-0" style="text-rendering: optimizelegibility; clip: rect(0px, 0px, 0px, 0px); outline: 0px;">EUR&nbsp;690.71</span><span aria-hidden="true" class="px-px font-bold">EUR&nbsp;690.71</span>
+                                </div>
+                            </div>
+                            <div class="text-sm whitespace-nowrap basis-1/2 text-neutral-500" style="text-rendering: optimizelegibility; line-height: 1.4;">
+                                Cost for 2 nights, 2 guests
+                            </div>
+                        </div>
+                        <button aria-label="Select Deluxe Room">
+                            <div class="rate-cta">Select</div>
+                        </button>
+                        
+                        <a href="#btnViewSummary" class="absolute p-2 normal-case bg-white cursor-pointer focus:left-0 focus:text-cyan-600 hover:text-cyan-600" style="text-rendering: optimizelegibility; transition: all 0.3s ease 0s; text-decoration: none; z-index: 100; left: -9999px; line-height: normal;">Skip to booking summary</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---->
+</div>
+
+<style lang="postcss">
+    .rate-wrapper {
+        @apply flex relative flex-col px-4 pt-0 pb-4 m-auto w-full text-base leading-6 md:px-4 md:pt-0 md:pb-6 text-zinc-800;
+        min-height: 90px;
+    }
+
+    .rate-name {
+        @apply block clear-both p-0 mx-0 mt-4 mb-0 text-sm font-normal text-left text-neutral-700;
+        line-height: 1.22;
+    }
+
+    .rate-name button {
+        @apply inline-block p-0 m-0 font-sans font-medium text-center whitespace-normal rounded border border-transparent border-solid appearance-none cursor-pointer select-none focus:border-transparent focus:bg-transparent focus:text-sky-700 hover:border-transparent hover:bg-transparent hover:text-sky-700 underline;
+    }
+
+    .rate-content {
+        @apply flex relative flex-col w-full leading-6 md:flex-row md:justify-between;
+        min-height: 50px;
+    }
+
+    .rate-inclusions {
+        @apply my-1 mx-0 text-sm;
+    }
+
+    .inclusion {
+        @apply mb-1 leading-4 flex
+    }
+
+    .inclusion.upsell {
+        @apply text-green-800 
+    }
+
+    .sm-icon {
+        @apply inline-block relative -top-px mr-1 w-4 h-4 leading-none align-middle;
+    }
+
+    .sm-icon svg {
+        @apply inline-block w-4 h-4 pointer-events-none fill-current;
+        width: 1em;
+        height: 1em;
+    }
+
+    .rate-price {
+        @apply flex relative flex-col justify-end items-end w-auto md:flex-row md:justify-between;
+        min-height: 50px;
+    }
+
+    .rate-available {
+        @apply flex flex-wrap justify-between w-full;
+    }
+
+    .rate-price-wrap {
+        @apply flex-1 text-right md:inline-flex md:items-end
+    }
+
+    .book-price {
+        @apply md:mr-4 md:flex-1
+    }
+
+    .rate-price-wrap button {
+        @apply relative p-0 -my-1 font-sans text-center text-black bg-none border-0 cursor-pointer;
+        min-width: 48px; min-height: 48px;
+    }
+
+    .rate-cta {
+        @apply py-2 px-6 m-0 text-base text-center text-white normal-case bg-fuchsia-800 hover:bg-fuchsia-700 transition-all ease-in-out duration-150 bg-none rounded-lg cursor-pointer
+    }
+</style>

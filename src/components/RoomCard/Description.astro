@@ -1,0 +1,21 @@
+---
+import DOMPurify from "isomorphic-dompurify";
+
+interface Props {
+  description: string;
+}
+
+const { description } = Astro.props;
+---
+
+<div class="cursor-pointer">
+  <div
+    class="overflow-hidden overflow-ellipsis"
+    style="overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; text-rendering: optimizelegibility;"
+  >
+    <div
+      class="pt-3 text-zinc-600"
+      set:html={DOMPurify.sanitize(description)}
+    />
+  </div>
+</div>

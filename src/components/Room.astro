@@ -1,0 +1,67 @@
+---
+import { Image } from "@astrojs/image/components";
+import { Room } from "types";
+import Amenities from "./RoomCard/Amenities.astro";
+import Description from "./RoomCard/Description.astro";
+import Features from "./RoomCard/Features.astro";
+import Rate from "./RoomCard/Rate.astro";
+
+function hasAvailableRates(room: Room) {}
+
+interface Props {
+  room: Room;
+}
+
+const { room } = Astro.props;
+---
+
+<div class="room-types" id="">
+  <div class="room-brief">
+    <h2><span>{room.name}</span></h2>
+
+    <Features bedrooms={room.bedrooms} occupancy={room.maxOccupancy} />
+
+    <Amenities amenities={room.amenities} />
+
+    <Description description={room.description} />
+
+    <code style="display: none;"> {JSON.stringify(room)}</code>
+  </div>
+
+  <div class="image-box" style="width: 300px; height: 200px;">
+    <Image
+      src={"/assets/point3d-commercial-imaging-ltd-oxeCZrodz78-unsplash.jpg"}
+      width={300}
+      height={300}
+      alt="sample"
+    />
+  </div>
+</div>
+
+<!-- If sold-out -->
+<div class="room-sold-out"></div>
+
+<div class="room-rate-list">
+  {room.rates.map((rate) => <Rate rate={rate} />)}
+</div>
+
+<style lang="postcss">
+    .room-types {
+        @apply flex flex-row-reverse
+    }
+
+    .room-brief {
+        @apply px-3 py-4 flex-grow
+    }
+
+    .image-box {
+        overflow: hidden;
+    }
+
+    .image-box img {
+        height: inherit;
+        object-fit: none;
+        object-position: 50% 50%;
+
+    }
+</style>

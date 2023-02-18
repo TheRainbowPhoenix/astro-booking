@@ -13,3 +13,11 @@ export const selectorsValues = persistentMap(
     decode: parse,
   }
 );
+
+
+export const basket = map(
+  {
+    rooms: [],
+    extras: []
+  }
+)

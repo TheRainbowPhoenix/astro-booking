@@ -179,7 +179,7 @@
     <button type="submit"> Submit </button> -->
 </div>
 
-<style>
+<style lang="postcss">
   .ab-main-qs {
     text-align: center;
     padding: 1em;
@@ -306,7 +306,26 @@
     width: 100%;
   }
 
-  :global(.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay) {
+  :global(
+      .flatpickr-day.selected,
+      .flatpickr-day.startRange,
+      .flatpickr-day.endRange,
+      .flatpickr-day.selected.inRange,
+      .flatpickr-day.startRange.inRange,
+      .flatpickr-day.endRange.inRange,
+      .flatpickr-day.selected:focus,
+      .flatpickr-day.startRange:focus,
+      .flatpickr-day.endRange:focus,
+      .flatpickr-day.selected:hover,
+      .flatpickr-day.startRange:hover,
+      .flatpickr-day.endRange:hover,
+      .flatpickr-day.selected.prevMonthDay,
+      .flatpickr-day.startRange.prevMonthDay,
+      .flatpickr-day.endRange.prevMonthDay,
+      .flatpickr-day.selected.nextMonthDay,
+      .flatpickr-day.startRange.nextMonthDay,
+      .flatpickr-day.endRange.nextMonthDay
+    ) {
     background: #82009f;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -318,19 +337,32 @@
     border-radius: 0.25rem;
   }
 
-  :global(.flatpickr-day.selected.startRange, .flatpickr-day.startRange.startRange, .flatpickr-day.endRange.startRange) {
+  :global(
+      .flatpickr-day.selected.startRange,
+      .flatpickr-day.startRange.startRange,
+      .flatpickr-day.endRange.startRange
+    ) {
     border-radius: 0.25rem 0 0 0.25rem;
   }
 
-  :global(.flatpickr-day.selected.endRange, .flatpickr-day.startRange.endRange, .flatpickr-day.endRange.endRange) {
+  :global(
+      .flatpickr-day.selected.endRange,
+      .flatpickr-day.startRange.endRange,
+      .flatpickr-day.endRange.endRange
+    ) {
     border-radius: 0 0.25rem 0.25rem 0;
   }
 
-  :global(.flatpickr-day.selected.startRange
-      + .endRange:not(:nth-child(7n + 1)), .flatpickr-day.startRange.startRange
-      + .endRange:not(:nth-child(7n + 1)), .flatpickr-day.endRange.startRange
-      + .endRange:not(:nth-child(7n + 1))) {
+  :global(
+      .flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
+      .flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)),
+      .flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n + 1))
+    ) {
     -webkit-box-shadow: -10px 0 0 #82009f00;
     box-shadow: -10px 0 0 #82009f00;
+  }
+
+  :global(.flatpick-calendar.open) {
+    @apply py-1 px-2 leading-6 text-base bg-white border-gray-200 border-solid text-zinc-800;
   }
 </style>
