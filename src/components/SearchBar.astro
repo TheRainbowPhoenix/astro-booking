@@ -32,6 +32,19 @@ function handleSubmit(e) {
         box-shadow: 0 6px 24px 6px #00000013;
     }
 
+    .ab-qs-mobile {
+        display: none;
+    }
+
+    @media (max-width: 767px) {
+        .ab-qs-desktop {
+            display: none;
+        }
+        .ab-qs-mobile {
+            display: block;
+        }
+    }
+
     @media (min-width: 984px) {
         :global(.ab-header-banner+.ab-quick-search) {
             position:relative;

@@ -2,6 +2,7 @@
 import HeaderBanner from "@components/HeaderBanner.astro";
 import SearchBar from "@components/SearchBar.astro";
 import Cart from "@components/BookingSummary/Cart.svelte";
+import Footer from "@components/BookingSummary/Footer.astro";
 import Features from "./RoomCard/Features.astro";
 import Amenities from "./RoomCard/Amenities.astro";
 
@@ -38,7 +39,7 @@ let rooms = await response.json();
     <main class="ab-main">
         <div class="wrapper">
             <div class="grid grid-cols-12 gap-4 clear-both relative -mx-2 leading-5 text-zinc-800">
-                <div class="col col-span-12 sm:col-span-8 md:col-span-8 px-2">
+                <div class="col col-span-12 lg:col-span-8 px-2">
                     <section class="main-content">
                         <div class="rooms">
                             {
@@ -52,7 +53,7 @@ let rooms = await response.json();
                         </div>
                     </section>
                 </div>
-                <dir class="col col-span-12 sm:col-span-4 md:col-span-4 px-2">
+                <dir class="col col-span-12 lg:col-span-4 px-2">
                     <aside class="sticky" style="top: 88px">
                         <Cart client:load/>
                     </aside>
@@ -61,11 +62,18 @@ let rooms = await response.json();
             </div>
         </div>
     </main>
+    <Footer />
 </div>
 
 <style lang="postcss">
     .ab-booking {
         min-height: auto;
+    }
+
+    @media (max-width: 767px) {
+        .ab-booking {
+            margin-top: 8rem;
+        }
     }
 
     .vh {

@@ -28,7 +28,7 @@ const { room } = Astro.props;
     <code style="display: none;"> {JSON.stringify(room)}</code>
   </div>
 
-  <div class="image-box" style="width: 300px; height: 200px;">
+  <div class="image-box">
     <Image
       src={"/assets/point3d-commercial-imaging-ltd-oxeCZrodz78-unsplash.jpg"}
       width={300}
@@ -47,7 +47,7 @@ const { room } = Astro.props;
 
 <style lang="postcss">
     .room-types {
-        @apply flex flex-row-reverse
+        @apply flex sm:flex-row-reverse flex-col-reverse
     }
 
     .room-brief {
@@ -55,10 +55,13 @@ const { room } = Astro.props;
     }
 
     .image-box {
+        @apply sm:w-[300px] w-full h-[300px] sm:h-[200px];
         overflow: hidden;
+        
     }
 
     .image-box img {
+        @apply sm:w-[300px] w-full h-[300px] sm:h-[200px]; 
         height: inherit;
         object-fit: none;
         object-position: 50% 50%;

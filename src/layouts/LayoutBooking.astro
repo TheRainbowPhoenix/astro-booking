@@ -53,8 +53,9 @@ const { context, title } = Astro.props;
   </body>
 </html>
 
-<style>
+<style lang="postcss">
 	.back-top {
+		@apply hidden lg:block;
 		position: fixed;
 		bottom: 15px;
 		right: 10px;

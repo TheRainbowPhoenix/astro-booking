@@ -104,7 +104,7 @@
 
 <style lang="postcss">
   .booking-summary {
-    @apply bg-white px-4 pt-4 pb-0 border-solid rounded-lg border border-slate-300;
+    @apply bg-white px-4 pt-4 pb-0 border-solid rounded-lg border border-slate-300 hidden lg:block;
   }
 
   .section {
