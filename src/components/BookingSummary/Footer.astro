@@ -1,4 +1,5 @@
 ---
+import MobileSummary from "./MobileSummary.svelte";
 
 ---
 
@@ -6,22 +7,7 @@
     <div class="container">
         <div class="content" style="min-height: 48px;">
             <div class="left-content" style="min-height: 48px;">
-                <button id="selectionsText" class="flex flex-col justify-center self-stretch p-0 font-sans text-base font-normal text-left text-black bg-none cursor-pointer md:pl-2 scroll-smooth">
-                    <div class="md:mr-5 scroll-smooth" style="line-height: normal;">
-                        <div class="scroll-smooth">
-                            <!---->
-                        </div>
-                        <div class="scroll-smooth">
-                            <span class="overflow-hidden absolute p-0 -m-px w-px h-px border-0 scroll-smooth" style="clip: rect(0px, 0px, 0px, 0px); outline: 0px;">EUR&nbsp;2,001.19</span><span aria-hidden="true" class="px-px font-bold scroll-smooth">EUR&nbsp;2,001.19</span>
-                        </div>
-                    </div>
-                    <span class="mt-0 text-sm scroll-smooth text-stone-500"><span class="scroll-smooth">1 room, 1 suite</span>,
-                        <span class="scroll-smooth">4 guests</span>
-                        <svg version="1.1" viewBox="0 0 24 24" class="inline-block ml-1 w-2 h-4 not-italic normal-case align-baseline pointer-events-none scroll-smooth" focusable="false" aria-hidden="true" style="width: 10px; fill: currentcolor; stroke: none; speak: none; font-variant: normal; font-family: element-icons;">
-                            <path fill="#1E3136" stroke="none" d="M23.998 5.5a.493.493 0 01-.126.332l-11.5 13a.5.5 0 01-.748 0l-11.5-13a.5.5 0 01.749-.663l11.125 12.577L23.124 5.17a.5.5 0 01.874.332z" data-name="Outline Icons" class="scroll-smooth" style="font-family: element-icons;"></path>
-                        </svg>
-                    </span>
-                </button>
+                <MobileSummary client:load/>
             </div>
             <div class="right-content">
                 <div class="w-full scroll-smooth">
@@ -39,6 +25,12 @@
         @apply lg:hidden fixed bottom-0 w-full border-solid border-t border-slate-300;
         background: hsla(0,0%,100%,.95);
     }
+
+    :global(body.mobile-show-booking .footer-booking-summary) {
+        display: none;
+        visibility: hidden;
+    }
+
 
     .container {
         @apply flex items-center py-0 px-4 m-auto h-16 leading-none sm:m-auto lg:m-auto lg:px-10 lg:py-0 scroll-smooth text-zinc-800;

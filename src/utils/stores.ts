@@ -18,6 +18,7 @@ export const selectorsValues = persistentMap(
 export const basket = map(
   {
     rooms: [],
-    extras: []
+    extras: [],
+    mobilePicerVisible: false
   }
 )
