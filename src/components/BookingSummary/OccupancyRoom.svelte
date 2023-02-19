@@ -4,7 +4,9 @@
 </script>
 
 <div class="occupancy-rooms">
-  {rooms} room{rooms > 1 && "s"}, {occupancy} guest{occupancy > 1 && "s"}
+  {rooms} room{rooms > 1 ? "s" : ""}, {occupancy} guest{occupancy > 1
+    ? "s"
+    : ""}
 </div>
 
 <style lang="postcss">

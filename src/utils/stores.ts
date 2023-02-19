@@ -35,6 +35,7 @@ export const basket = map(
       type: "Sharing",
       name: "Deluxe Room",
       totalPrice: 690.71,
+      guest: 2,
       cancellation: [{ message: "Cancellation fee applies" }],
     }],
     extras: [],

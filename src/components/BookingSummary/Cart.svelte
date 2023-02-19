@@ -22,6 +22,8 @@
   let fixedTaxes = [];
 
   let paymentTotal = 0;
+  let roomCount = 0;
+  let guestTotal = 0;
 
   let checkInDate = "Mon, 13 Mar 23";
   let checkOutDate = "Wed, 15 Mar 23";
@@ -38,6 +40,14 @@
         ? rooms
             .map((r) => {
               return r.totalPrice;
+            })
+            .reduce((partialSum, a) => partialSum + a, 0)
+        : 0;
+      roomCount = rooms?.length || 0;
+      guestTotal = rooms
+        ? rooms
+            .map((r) => {
+              return r.guest;
             })
             .reduce((partialSum, a) => partialSum + a, 0)
         : 0;
@@ -97,7 +107,7 @@
         is_stack_layout={false}
         show_number_of_nights={true}
       />
-      <OccupancyRoom rooms={2} occupancy={4} />
+      <OccupancyRoom rooms={roomCount} occupancy={guestTotal} />
     </section>
 
     <div class="room-selection">

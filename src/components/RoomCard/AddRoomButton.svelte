@@ -10,6 +10,7 @@
       type: "Sharing",
       name: room.name,
       totalPrice: 690.71,
+      guest: 2,
       cancellation: [{ message: "Cancellation fee applies" }],
     });
     basket.setKey("rooms", rooms);
