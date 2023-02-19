@@ -37,7 +37,7 @@
   }
 
   .tip {
-    @apply hidden lg:flex p-4 text-sm bg-violet-50 rounded border-transparent border-solid pointer-events-none relative;
+    @apply hidden lg:flex flex-col p-4 text-sm bg-violet-50 rounded border-transparent border-solid pointer-events-none relative;
   }
 
   .tip:before {

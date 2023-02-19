@@ -6,7 +6,7 @@
   import { onMount } from "svelte";
   import { onSet } from "nanostores";
 
-  let cartItems = [];
+  let cartItems = basket?.get()?.rooms || [];
 
   let unbindListener;
 

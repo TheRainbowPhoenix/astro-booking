@@ -21,7 +21,7 @@
   let perPersonExtras = [];
   let fixedTaxes = [];
 
-  let paymentTotal = 2004.99;
+  let paymentTotal = 0;
 
   let checkInDate = "Mon, 13 Mar 23";
   let checkOutDate = "Wed, 15 Mar 23";
@@ -33,20 +33,24 @@
   function onClick(event: MouseEvent) {}
 
   function updateTotal(rooms: any[]) {
-    paymentTotal = rooms
-      .map((r) => {
-        return r.totalPrice;
-      })
-      .reduce((partialSum, a) => partialSum + a, 0);
-    console.log(paymentTotal);
+    if (Array.isArray(rooms)) {
+      paymentTotal = rooms
+        ? rooms
+            .map((r) => {
+              return r.totalPrice;
+            })
+            .reduce((partialSum, a) => partialSum + a, 0)
+        : 0;
+      console.log(paymentTotal);
+    }
   }
+  updateTotal($basket?.rooms || []);
 
   onMount(() => {
     onSet(basket, ({ newValue, abort }) => {
-      console.log(newValue);
+      console.log("newValue : ", newValue);
       updateTotal(newValue?.rooms || []);
     });
-    updateTotal($basket?.rooms || []);
   });
 </script>
 

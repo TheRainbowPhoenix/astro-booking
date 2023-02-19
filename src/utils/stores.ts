@@ -14,6 +14,20 @@ export const selectorsValues = persistentMap(
   }
 );
 
+/*
+export const basket = persistentMap(
+  "booking:",
+  {
+    rooms: [],
+    extras: [],
+    mobilePicerVisible: false
+  }, {
+    encode: encode,
+    decode: parse,
+    
+  }
+)
+*/
 
 export const basket = map(
   {
