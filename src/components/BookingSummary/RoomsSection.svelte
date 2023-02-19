@@ -112,7 +112,7 @@
   }
 
   .box {
-    @apply flex justify-between;
+    @apply flex justify-between h-8 lg:h-auto;
   }
 
   .room-type::after {
@@ -120,7 +120,7 @@
   }
 
   .name {
-    @apply block mb-4 text-base font-bold;
+    @apply block mb-2 lg:mb-4 text-base font-bold;
   }
 
   .btn-remove-room {

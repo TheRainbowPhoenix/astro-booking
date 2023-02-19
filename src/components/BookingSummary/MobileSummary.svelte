@@ -97,10 +97,7 @@
   </div>
   <span class="mt-0 text-sm scroll-smooth text-stone-500"
     ><span class="scroll-smooth"
-      >{roomCount} room{roomCount > 1 ? "s" : ""}, {roomCount} suite{roomCount >
-      1
-        ? "s"
-        : ""}</span
+      >{roomCount} room{roomCount > 1 ? "s" : ""}</span
     >,
     <span class="scroll-smooth"
       >{guestTotal} guest{guestTotal > 1 ? "s" : ""}</span
