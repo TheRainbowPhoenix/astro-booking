@@ -7,7 +7,7 @@
 </script>
 
 <section class="total">
-  <div class="mb-3">
+  <div class="mb-3 mx-4 md:mx-auto lg:mx-0">
     <div class="total-content">
       <div class="total-text">Total</div>
       <div class="total-value">{currency}&nbsp;{totalAmount}</div>

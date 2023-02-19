@@ -240,7 +240,7 @@
   }
 
   .booking-summary-footer {
-    @apply py-4 leading-5 text-zinc-800;
+    @apply py-4 leading-5 text-zinc-800 md:max-w-[400px] md:w-full;
   }
 
   .btn-cta {
