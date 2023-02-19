@@ -10,14 +10,18 @@
   <div class="mb-3 mx-4 md:mx-auto lg:mx-0">
     <div class="total-content">
       <div class="total-text">Total</div>
-      <div class="total-value">{currency}&nbsp;{totalAmount}</div>
+      <div class="total-value">
+        {currency}&nbsp;{parseFloat("" + totalAmount).toFixed(2)}
+      </div>
     </div>
   </div>
 
   <div tabindex="-1" class="tip">
     <div class="tip-text">Book now, pay later!</div>
     <div class="tip-balance">
-      Outstanding balance: {currency}&nbsp;{totalAmount}
+      Outstanding balance: {currency}&nbsp;{parseFloat(
+        "" + totalAmount
+      ).toFixed(2)}
     </div>
   </div>
 </section>

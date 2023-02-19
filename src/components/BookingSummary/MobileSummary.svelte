@@ -89,9 +89,9 @@
       <span
         class="overflow-hidden absolute p-0 -m-px w-px h-px border-0 scroll-smooth"
         style="clip: rect(0px, 0px, 0px, 0px); outline: 0px;"
-        >EUR&nbsp;{paymentTotal}</span
+        >EUR&nbsp;{parseFloat("" + paymentTotal).toFixed(2)}</span
       ><span aria-hidden="true" class="px-px font-bold scroll-smooth"
-        >EUR&nbsp;{paymentTotal}</span
+        >EUR&nbsp;{parseFloat("" + paymentTotal).toFixed(2)}</span
       >
     </div>
   </div>

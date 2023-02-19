@@ -29,7 +29,7 @@
   let checkOutDate = "Wed, 15 Mar 23";
 
   function toCurrency(value) {
-    return `EUR ${value}`;
+    return `EUR ${parseFloat(value).toFixed(2)}`;
   }
 
   function onClick(event: MouseEvent) {}
@@ -96,7 +96,9 @@
   </div>
 
   <div class="booking-summary-heading">
-    <GrandTotalHeading value={toCurrency(paymentTotal)} />
+    <GrandTotalHeading
+      value={toCurrency(parseFloat("" + paymentTotal).toFixed(2))}
+    />
   </div>
 
   <div class="booking-summary-body">
