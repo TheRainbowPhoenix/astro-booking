@@ -10,13 +10,15 @@
   <div class="mb-3">
     <div class="total-content">
       <div class="total-text">Total</div>
-      <div class="total-value">EUR&nbsp;2,001.19</div>
+      <div class="total-value">{currency}&nbsp;{totalAmount}</div>
     </div>
   </div>
 
   <div tabindex="-1" class="tip">
     <div class="tip-text">Book now, pay later!</div>
-    <div class="tip-balance">Outstanding balance: EUR&nbsp;2,001.19</div>
+    <div class="tip-balance">
+      Outstanding balance: {currency}&nbsp;{totalAmount}
+    </div>
   </div>
 </section>
 

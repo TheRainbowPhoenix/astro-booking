@@ -245,7 +245,7 @@
     left: 0.375rem;
     top: -0.625rem;
     position: absolute;
-    z-index: 99;
+    z-index: 9;
   }
 
   :global(.ab-qs-input .flatpickr-input) {

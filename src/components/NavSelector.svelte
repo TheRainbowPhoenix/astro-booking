@@ -208,7 +208,7 @@
     opacity: 0;
     position: absolute;
     transform: scaleY(0);
-    z-index: 99;
+    z-index: 9;
     margin: 8px 0;
 
     transition-property: transform, opacity;

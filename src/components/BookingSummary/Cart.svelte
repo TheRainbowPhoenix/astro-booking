@@ -7,6 +7,8 @@
   import RoomsSection from "./RoomsSection.svelte";
 
   import { basket } from "@utils/stores";
+  import { onSet } from "nanostores";
+  import { onMount } from "svelte";
 
   function doBookingHide(event: Event) {
     const visible = $basket.mobilePicerVisible;
@@ -19,7 +21,7 @@
   let perPersonExtras = [];
   let fixedTaxes = [];
 
-  let paymentTotal = 2001.99;
+  let paymentTotal = 2004.99;
 
   let checkInDate = "Mon, 13 Mar 23";
   let checkOutDate = "Wed, 15 Mar 23";
@@ -29,6 +31,23 @@
   }
 
   function onClick(event: MouseEvent) {}
+
+  function updateTotal(rooms: any[]) {
+    paymentTotal = rooms
+      .map((r) => {
+        return r.totalPrice;
+      })
+      .reduce((partialSum, a) => partialSum + a, 0);
+    console.log(paymentTotal);
+  }
+
+  onMount(() => {
+    onSet(basket, ({ newValue, abort }) => {
+      console.log(newValue);
+      updateTotal(newValue?.rooms || []);
+    });
+    updateTotal($basket?.rooms || []);
+  });
 </script>
 
 <div class="booking-summary" tabindex="-1">
@@ -115,7 +134,7 @@
           />
         </section>
       {/each}
-      <section no-line="true">
+      <section>
         <grand-total-section
           total="paymentTotal"
           currency="currency"
@@ -124,8 +143,8 @@
         />
         <BalanceTotal
           depositTotal="depositTotal"
-          totalAmount="paymentTotal"
-          currency="currency"
+          totalAmount={paymentTotal}
+          currency="EUR"
           decimals="decimals"
           ccSurcharge="ccSurcharge"
         />
