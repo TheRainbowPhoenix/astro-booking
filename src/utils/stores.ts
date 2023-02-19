@@ -17,7 +17,12 @@ export const selectorsValues = persistentMap(
 
 export const basket = map(
   {
-    rooms: [],
+    rooms: [{
+      type: "Sharing",
+      name: "Deluxe Room",
+      totalPrice: 690.71,
+      cancellation: [{ message: "Cancellation fee applies" }],
+    }],
     extras: [],
     mobilePicerVisible: false
   }

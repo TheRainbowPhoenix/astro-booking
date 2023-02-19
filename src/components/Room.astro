@@ -42,7 +42,7 @@ const { room } = Astro.props;
 <div class="room-sold-out"></div>
 
 <div class="room-rate-list">
-  {room.rates.map((rate) => <Rate rate={rate} />)}
+  {room.rates.map((rate) => <Rate rate={rate} room={room} />)}
 </div>
 
 <style lang="postcss">
@@ -55,7 +55,7 @@ const { room } = Astro.props;
     }
 
     .image-box {
-        @apply sm:w-[300px] w-full h-[300px] sm:h-[200px];
+        @apply sm:w-[300px] w-full h-[300px] sm:h-[200px] flex-shrink-0;
         overflow: hidden;
         
     }

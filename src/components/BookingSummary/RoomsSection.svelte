@@ -2,40 +2,24 @@
   import { t } from "@utils/i18n";
   import OccupancyLos from "./OccupancyLos.svelte";
   import Price from "./Price.svelte";
-  let cartItems = [
-    {
-      type: "Sharing",
-      name: "Deluxe Room",
-      cancellation: [{ message: "Cancellation fee applies" }],
-    },
-    {
-      type: "Sharing",
-      name: "Deluxe Room",
-      cancellation: [{ message: "Cancellation fee applies" }],
-    },
-    {
-      type: "Sharing",
-      name: "Deluxe Room",
-      cancellation: [{ message: "Cancellation fee applies" }],
-    },
-    {
-      type: "Sharing",
-      name: "Deluxe Room",
-      cancellation: [{ message: "Cancellation fee applies" }],
-    },
-    {
-      type: "Sharing",
-      name: "Deluxe Room",
-      cancellation: [{ message: "Cancellation fee applies" }],
-    },
-    {
-      type: "Sharing",
-      name: "Deluxe Room",
-      cancellation: [{ message: "Cancellation fee applies" }],
-    },
-  ];
+  import { basket } from "@utils/stores";
+  import { onMount } from "svelte";
+  import { onSet } from "nanostores";
 
-  function removeRoom(index: number) {}
+  let cartItems = [];
+
+  let unbindListener;
+
+  function removeRoom(index: number) {
+    console.log(cartItems, index);
+
+    if (index >= 0 && index < cartItems.length) {
+      cartItems.splice(index, 1);
+      cartItems = [...cartItems];
+      basket.setKey("rooms", cartItems);
+    }
+    console.log($basket.rooms);
+  }
   function getCancellationDifferentiator(item: any) {
     return item?.cancellation || [];
   }
@@ -43,12 +27,27 @@
   function getTotalOccupancy(itel: any) {
     return "2"; // TODO
   }
+
+  onMount(() => {
+    unbindListener = basket.subscribe((value) => {
+      console.log(value);
+      cartItems = value.rooms;
+    });
+
+    onSet(basket, ({ newValue, abort }) => {
+      console.log(newValue);
+      cartItems = newValue.rooms;
+    });
+
+    cartItems = basket?.get()?.rooms || [];
+    console.log(cartItems);
+  });
 </script>
 
 <div class="summary-rooms">
   <h2 class="vh">{$t("BookingSummary.rooms_section_title_sronly")}</h2>
   {#each cartItems as item, index}
-    <div class="room" :key="undefined">
+    <div class="room">
       <div class="box">
         <span class="name">
           <span class="room-type">{item.type}</span>
