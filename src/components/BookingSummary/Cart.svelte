@@ -205,7 +205,7 @@
   }
 
   .booking-summary-heading {
-    @apply mt-4 lg:mt-0 flex flex-col overflow-hidden min-h-0;
+    @apply mt-4 lg:mt-0 flex flex-col overflow-hidden min-h-0 shrink-0;
   }
 
   .mobile-header {

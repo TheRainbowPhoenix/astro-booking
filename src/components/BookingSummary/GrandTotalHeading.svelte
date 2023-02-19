@@ -11,7 +11,7 @@
 
 <style lang="postcss">
   .grand-total-heading {
-    @apply mb-3;
+    @apply mb-3 shrink-0;
   }
 
   .amount {
